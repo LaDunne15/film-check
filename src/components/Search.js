@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Movie from "./Movie";
 import { useNavigate, useParams } from "react-router-dom";
+import MovieMini from "./MovieMini";
 
 function Search() {
 
@@ -52,7 +52,8 @@ function Search() {
     const find = async (_search,_page) => {
         setError(false);
         setIsLoading(true);
-        const apiUrl = 'https://moviesdatabase.p.rapidapi.com/titles/search/title/'+_search+"?page="+_page;
+        const apiUrl = 'https://moviesdatabase.p.rapidapi.com/titles/search/title/'+_search+"?sort=year.decr&exact=false&limit=30&page="+_page;
+        //titleType?tvSeries
         await fetch(apiUrl, {
             method: "GET",
             headers: {
@@ -93,7 +94,7 @@ function Search() {
             }
             {
                 (!error) && (!isLoading) && movies.map((i,index)=>
-                    <Movie key={index} movieData={i}/>
+                    <MovieMini key={index} movieData={i}/>
                 )
             }
         </div>

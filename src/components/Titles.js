@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Movie from "./Movie";
+import MovieMini from "./MovieMini";
 
 function Titles({titles}) {
     const [data,setData] = useState([]);
@@ -45,7 +45,7 @@ function Titles({titles}) {
             <h4>{titles}</h4>
             {
                 data.map((i,index)=>
-                    <Movie key={index} movieData={i}/>
+                    <MovieMini key={index} movieData={i}/>
                 )
             }
         </div>

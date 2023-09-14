@@ -1,7 +1,7 @@
 import Main from "./components/Main";
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import Search from "./components/Search";
-import Movie from "./components/Movie";
+import Movie from "./components/movie/Movie";
 function App() {
 
   return (

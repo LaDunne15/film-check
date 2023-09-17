@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { titlesService } from "../../services/titlesService.js";
 import { formatService } from "../../services/formatService.js";
+import CustomInfo from "./CustomInfo.js";
 
 function Movie() {
 
@@ -36,13 +37,26 @@ function Movie() {
         trailerUrl: ""
     });
 
+    const [ awards, setAwards ] = useState({
+        wins: 0,
+        nominations: 0,
+        prestigeAward: {
+            name: "",
+            wins: 0,
+            nominations: 0
+        }
+    });
+
+    const [ images, setImages ] = useState([{
+        url:"",
+        plainText:""
+    }]);
+
     const [ revenueBudget, setRevenueBudget ] = useState([]);
     const [ extendedCast, setExtendedCast] = useState([]);
-    const [ awards, setAwards ] = useState([]);
-    const [ trailer, setTrailer ] = useState([]);
+    
     const [ moreLikeThis, setMoreLikeThis ] = useState([]);
     const [ summaries, setSummaries ] = useState([]);
-    const [ images, setImages ] = useState([]);
     const [ synopses, setSynopses ] = useState([]);
     const [ isLoading, setIsLoading] = useState(true); // To track loading state
     const [ isError, setIsError] = useState(false); // To track any errors
@@ -55,16 +69,14 @@ function Movie() {
     useEffect(()=>{
         setIsLoading(true);
         setIsError(false);
-        //Основні дані
         titlesService.getTitleCustomInfo(id).then((res)=>{
             res.json().then(data=>{
                 if(res.ok) {
                     setTitle({
-                        ...title,
                         name: data.results.titleText.text,
                         imageUrl: data.results.primaryImage.url,
                         year: data.results.releaseYear.year,
-                        runtime: formatService.secondsToHoursAndMinutes(data.results.runtime.seconds),
+                        runtime:  formatService.secondsToHoursAndMinutes(data.results.runtime?.seconds),
                         genres: data.results.genres.genres.map(i=>i.text),
                         keywords: data.results.keywords.edges.map(i=>i.node.text),
                         type: data.results.titleType.text,
@@ -81,7 +93,7 @@ function Movie() {
                                 difference: data.results.meterRanking?.rankChange.difference
                             }
                         },
-                        plot: data.results.plot.plotText.plainText,
+                        plot: data.results.plot?.plotText.plainText,
                         writers: data.results.writers[0]?.credits.map(i=> ({
                             id:i.name.id,
                             name:i.name.nameText.text
@@ -94,19 +106,72 @@ function Movie() {
                             id:i.name.id,
                             name:i.name.nameText.text
                         })),
-                        stars: data.results.principalCast[0]?.credits.map(i=>({
+                        stars: data.results.principalCast?data.results.principalCast[0]?.credits.map(i=>({
                             id: i.name.id,
                             name: i.name.nameText.text
-                        })),
+                        })):null,
                         trailerUrl: data.results.trailer
-                    })
-                    console.log(data.results);
+                    });
                 } else {
                     setErrorData(data);
                 }
             })
-        }).catch((err) => {
-            setErrorData(err);
+        }).catch(err=>setErrorData(err));
+
+        titlesService.getTitleAwards(id).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setAwards({
+                        nominations: data.results.nominations?.total,
+                        wins: data.results.wins?.total,
+                        prestigeAward: {
+                            name: data.results.prestigiousAwardSummary?.award?.text,
+                            wins: data.results.prestigiousAwardSummary?.wins,
+                            nominations: data.results.prestigiousAwardSummary?.nominations
+                        }
+                    });
+                } else {
+                    setErrorData(data);
+                }
+            })
+        ).catch(err=>setErrorData(err));
+
+        titlesService.getTitleImages(id).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setImages(
+                        data.results.titleMainImages.edges.map(i=>({
+                            url: i.node.url,
+                            plainText: i.node.caption.plainText
+                        }))
+                    );
+                } else {
+                    setErrorData(data);
+                }
+            })
+        )
+
+        const apiUrl5 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=extendedCast";
+        fetch(apiUrl5, {
+            method: "GET",
+            headers: {
+                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
+                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (!response.ok) {
+                //setErrDatasetErrorDataor(true);
+            }
+            return response.json(); 
+        })
+        .then((data) => {
+            setExtendedCast(data);
+        })
+        .catch((error) => {
+            //setError(error);
+            setIsLoading(false);
         });
 
         const apiUrl4 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=revenue_budget";
@@ -131,71 +196,8 @@ function Movie() {
             ////setError(error);
             setIsLoading(false);
         });
-        const apiUrl5 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=extendedCast";
-        fetch(apiUrl5, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setExtendedCast(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
-        const apiUrl6 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=awards";
-        fetch(apiUrl6, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setAwards(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
-        const apiUrl7 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=trailer";
-        fetch(apiUrl7, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com"
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setTrailer(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
+        
+        
         const apiUrl8 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=moreLikeThisTitles";
         fetch(apiUrl8, {
             method: "GET",
@@ -240,28 +242,7 @@ function Movie() {
             //setError(error);
             setIsLoading(false);
         });
-        const apiUrl10 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=titleMainImages";
-        fetch(apiUrl10, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setImages(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
+        
         const apiUrl12 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=synopses";
         fetch(apiUrl12, {
             method: "GET",
@@ -288,7 +269,7 @@ function Movie() {
 
     return (
         <div>
-            <div>
+            <div className="custom_info">
                 <h4>{title.name} ({title.year}) - {title.runtime}</h4>
                 <h5>{title.type}</h5>
                 <div>{title.episodes.total>0 && <h5>Сезонів: {title.episodes.seasons} Всього серій: {title.episodes.total}</h5>}</div>
@@ -307,23 +288,31 @@ function Movie() {
                 { title.stars&&<h6>Зірки: {JSON.stringify(title.stars,null,2)}</h6>}
                 { title.trailerUrl&&<iframe title={title.name} style={{width:"100%"}} src={title.trailerUrl} allow="fullscreen"></iframe> }
             </div>
+            <div className="awards">
+                <p>
+                    <span>
+                        { awards.prestigeAward.name && <span>Престижна нагорода {awards.prestigeAward.name}:</span> }
+                        { awards.prestigeAward.wins && <span> {awards.prestigeAward.wins} виграшів </span> }
+                        { awards.prestigeAward.nominations && <span> {awards.prestigeAward.nominations} номінацій </span> }
+                    </span>
+                    { awards.wins>0 && <span> Виграшів: {awards.wins}</span> }
+                    { awards.nominations>0 && <span> Номінацій: {awards.nominations} </span> }
+                    { awards.nominations>0 && awards.wins>0 && <span>загалом</span> }
+                </p>
+            </div>
+            <div className="images">
+                {
+                    images.map((i,index)=><img style={{width:"100px"}} key={index} src={i.url} alt={i.plainText}/>)
+                }
+            </div>
             <pre>
-            error: {JSON.stringify(errorData,null,2)}
-            Трейлер:
-            {
-                JSON.stringify(trailer,null,2)
-            }
-            Бютжет:
-            {
-                JSON.stringify(revenueBudget,null,2)
-            }
             Озвучки:
             {
                 JSON.stringify(extendedCast,null,2)
             }
-            Нагороди:
+            Бютжет:
             {
-                JSON.stringify(awards,null,2)
+                JSON.stringify(revenueBudget,null,2)
             }
             Схожі:
             {
@@ -332,10 +321,6 @@ function Movie() {
             Підсумок:
             {
                 JSON.stringify(summaries,null,2)
-            }
-            Зображення:
-            {
-                JSON.stringify(images,null,2)
             }
             Синопсис:
             {

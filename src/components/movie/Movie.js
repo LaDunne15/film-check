@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { titlesService } from "../../services/titlesService.js";
 import { formatService } from "../../services/formatService.js";
-import CustomInfo from "./CustomInfo.js";
+import { encode } from 'base-64';
+import { addTitle, clearTitles } from '../../features/recentView/recentViewSlice.js'
+import { useDispatch, useSelector } from "react-redux";
 
 function Movie() {
 
     const {id} =useParams();
+
+    const count = useSelector((state) => state.recentViews.value);
+    const dispatch = useDispatch();
 
     const [ title, setTitle ] = useState({
         name: "",
@@ -37,6 +42,8 @@ function Movie() {
         trailerUrl: ""
     });
 
+    const [ counries, setCounries ] = useState([]);
+
     const [ awards, setAwards ] = useState({
         wins: 0,
         nominations: 0,
@@ -52,12 +59,54 @@ function Movie() {
         plainText:""
     }]);
 
-    const [ revenueBudget, setRevenueBudget ] = useState([]);
-    const [ extendedCast, setExtendedCast] = useState([]);
+    const [ extendedCast, setExtendedCast] = useState([{
+        id: "",
+        name: "",
+        imageUrl: "",
+        characters: [{
+            name:""
+        }]
+    }]);
+
+    const [ principalCast, setPrincipalCast ] = useState([{
+        id: "",
+        name: "",
+        imageUrl: "",
+        characters: [{
+            name:""
+        }]
+    }]);
+
+    const [ summaries, setSummaries ] = useState("");
+
+    const [ revenueBudget, setRevenueBudget ] = useState({
+        production: {
+            amount:0,
+            currency:""
+        },
+        lifetime: {
+            amount:0,
+            currency:""
+        },
+        weekend: {
+            endDate: "",
+            amount:0,
+            currency:""
+        },
+        worldwide: {
+            amount:0,
+            currency:""
+        }
+    });
     
-    const [ moreLikeThis, setMoreLikeThis ] = useState([]);
-    const [ summaries, setSummaries ] = useState([]);
-    const [ synopses, setSynopses ] = useState([]);
+    const [ moreLikeThis, setMoreLikeThis ] = useState([{
+        id: "",
+        name: "",
+        imageUrl: "",
+        year: 0,
+        rating: 0
+    }]);
+
     const [ isLoading, setIsLoading] = useState(true); // To track loading state
     const [ isError, setIsError] = useState(false); // To track any errors
     const [ errorData, setErrorData ] = useState([]);
@@ -67,15 +116,21 @@ function Movie() {
     },[errorData])
 
     useEffect(()=>{
+        document.title=title.name;
+    },[title]);
+
+    useEffect(()=>{
         setIsLoading(true);
         setIsError(false);
+        dispatch(addTitle(id));
         titlesService.getTitleCustomInfo(id).then((res)=>{
             res.json().then(data=>{
                 if(res.ok) {
+                    console.log(data);
                     setTitle({
                         name: data.results.titleText.text,
-                        imageUrl: data.results.primaryImage.url,
-                        year: data.results.releaseYear.year,
+                        imageUrl: data.results.primaryImage?.url,
+                        year: data.results.releaseYear?.year,
                         runtime:  formatService.secondsToHoursAndMinutes(data.results.runtime?.seconds),
                         genres: data.results.genres.genres.map(i=>i.text),
                         keywords: data.results.keywords.edges.map(i=>i.node.text),
@@ -112,6 +167,14 @@ function Movie() {
                         })):null,
                         trailerUrl: data.results.trailer
                     });
+                    setPrincipalCast(
+                        data.results.principalCast?data.results.principalCast[0]?.credits.map(i=>({
+                            id: i.name.id,
+                            name: i.name.nameText.text,
+                            imageUrl: i.name.primaryImage?.url,
+                            characters: i.characters?.map(j=>j.name)
+                        })):null
+                    )
                 } else {
                     setErrorData(data);
                 }
@@ -136,6 +199,18 @@ function Movie() {
             })
         ).catch(err=>setErrorData(err));
 
+        titlesService.getTitleCountries(id).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setCounries(
+                        data.results.countriesOfOrigin.countries.map(i=>i.text)
+                    )
+                } else {
+                    setErrorData(data);
+                }
+            })
+        ).catch(err=>setErrorData(err));
+
         titlesService.getTitleImages(id).then(
             res=>res.json().then(data=>{
                 if(res.ok) {
@@ -149,122 +224,81 @@ function Movie() {
                     setErrorData(data);
                 }
             })
-        )
+        ).catch(err=>setErrorData(err));
 
-        const apiUrl5 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=extendedCast";
-        fetch(apiUrl5, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setExtendedCast(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
+        titlesService.getTitleExtendedCast(id).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setExtendedCast(
+                        data.results.cast.edges.map(i=>({
+                            id:i.node.name.id,
+                            name:i.node.name.nameText.text,
+                            imageUrl:i.node.name.primaryImage?.url,
+                            characters: i.node.characters.map(j=>j.name)
+                        }))
+                    );
+                } else {
+                    setErrorData(data);
+                }
+            })
+        ).catch(err=>setErrorData(err));
 
-        const apiUrl4 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=revenue_budget";
-        fetch(apiUrl4, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                setErrorData(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setRevenueBudget(data);
-        })
-        .catch((error) => {
-            ////setError(error);
-            setIsLoading(false);
-        });
-        
-        
-        const apiUrl8 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=moreLikeThisTitles";
-        fetch(apiUrl8, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setMoreLikeThis(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
-        const apiUrl9 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=summaries";
-        fetch(apiUrl9, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setSummaries(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
-        
-        const apiUrl12 = 'https://moviesdatabase.p.rapidapi.com/titles/'+id+"?info=synopses";
-        fetch(apiUrl12, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                //setErrDatasetErrorDataor(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setSynopses(data);
-        })
-        .catch((error) => {
-            //setError(error);
-            setIsLoading(false);
-        });
+        titlesService.getTitlSummaries(id).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setSummaries(data.results.summaries.edges[0].node.plotText.plaidHtml);
+                } else {
+                    setErrorData(data);
+                }
+            })
+        ).catch(err=>setErrorData(err));
+
+        titlesService.getTitlRevenueBudget(id).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setRevenueBudget({
+                        production: {
+                            amount: data.results.productionBudget?.budget.amount,
+                            currency: data.results.productionBudget?.budget.currency
+                        },
+                        lifetime: {
+                            amount: data.results.lifetimeGross?.total.amount,
+                            currency: data.results.lifetimeGross?.total.currency
+                        },
+                        weekend: {
+                            amount: data.results.openingWeekendGross?.gross.total.amount,
+                            currency: data.results.openingWeekendGross?.gross.total.currency,
+                            endDate: data.results.openingWeekendGross?.weekendEndDate
+                        },
+                        worldwide: {
+                            amount: data.results.worldwideGross?.total.amount,
+                            currency: data.results.worldwideGross?.total.currency
+                        }
+                    })
+                } else {
+                    setErrorData(data);
+                }
+            })
+        ).catch(err=>setErrorData(err));
+
+        titlesService.getTitleMoreLikeThis(id).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setMoreLikeThis(
+                        data.results.moreLikeThisTitles.edges.map(i=>({
+                            id: i.node.id,
+                            name: i.node.originalTitleText?.text,
+                            imageUrl: i.node.primaryImage?.url,
+                            year: i.node.releaseYear?.year,
+                            rating: i.node.ratingsSummary?.aggregateRating
+                        }))
+                    );
+                } else {
+                    setErrorData(data);
+                }
+            })
+        ).catch(err=>setErrorData(err));
+
     },[id]);
 
     return (
@@ -288,45 +322,74 @@ function Movie() {
                 { title.stars&&<h6>Зірки: {JSON.stringify(title.stars,null,2)}</h6>}
                 { title.trailerUrl&&<iframe title={title.name} style={{width:"100%"}} src={title.trailerUrl} allow="fullscreen"></iframe> }
             </div>
-            <div className="awards">
-                <p>
-                    <span>
-                        { awards.prestigeAward.name && <span>Престижна нагорода {awards.prestigeAward.name}:</span> }
-                        { awards.prestigeAward.wins && <span> {awards.prestigeAward.wins} виграшів </span> }
-                        { awards.prestigeAward.nominations && <span> {awards.prestigeAward.nominations} номінацій </span> }
-                    </span>
-                    { awards.wins>0 && <span> Виграшів: {awards.wins}</span> }
-                    { awards.nominations>0 && <span> Номінацій: {awards.nominations} </span> }
-                    { awards.nominations>0 && awards.wins>0 && <span>загалом</span> }
-                </p>
+            <div className="summaries">
+                <h5>{summaries}</h5>
+            </div>
+            <div className="countries">
+                <h6>Країни:</h6>
+                {
+                    counries.map((i,index)=><div key={index}>{i}</div>)
+                }
             </div>
             <div className="images">
                 {
                     images.map((i,index)=><img style={{width:"100px"}} key={index} src={i.url} alt={i.plainText}/>)
                 }
             </div>
-            <pre>
-            Озвучки:
-            {
-                JSON.stringify(extendedCast,null,2)
-            }
-            Бютжет:
-            {
-                JSON.stringify(revenueBudget,null,2)
-            }
-            Схожі:
-            {
-                JSON.stringify(moreLikeThis,null,2)
-            }
-            Підсумок:
-            {
-                JSON.stringify(summaries,null,2)
-            }
-            Синопсис:
-            {
-                JSON.stringify(synopses,null,2)
-            }
-            </pre>
+            В ролях:
+            <div className="cast">
+                {
+                    principalCast && principalCast.map(i=>
+                        <div key={i.id}>
+                            <img style={{width:"100px"}} src={i.imageUrl} alt={i.name}/>
+                            <Link to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
+                            <span> {i.characters?.join(" ")} </span>
+                        </div>
+                    )
+                }
+                {
+                    extendedCast.map(i=>
+                        <div key={i.id}>
+                            <img style={{width:"100px"}} src={i.imageUrl} alt={i.name}/>
+                            <Link to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
+                            <span> {i.characters?.join(" ")} </span>
+                        </div>
+                    )
+                }
+            </div>
+            <div className="awards">
+                <p>
+                    <span>
+                        { awards.prestigeAward.name && <span>Престижна нагорода {awards.prestigeAward.name}:</span> }
+                        { awards.prestigeAward.win>0 && <span> {awards.prestigeAward.wins} виграшів </span> }
+                        { awards.prestigeAward.nominations>0 && <span> {awards.prestigeAward.nominations} номінацій </span> }
+                    </span>
+                    { awards.wins>0 && <span> Виграшів: {awards.wins}</span> }
+                    { awards.nominations>0 && <span> Номінацій: {awards.nominations} </span> }
+                    { awards.nominations>0 && awards.wins>0 && <span>загалом</span> }
+                </p>
+            </div>
+            <div className="budget">
+                <h4>Бютжет</h4>
+                <div>
+                    { revenueBudget.production.amount && <p>Кошторис: {revenueBudget.production.amount} {revenueBudget.production.currency}</p> }
+                    { revenueBudget.weekend.amount && <p>Збір за перший вихідний: {revenueBudget.weekend.amount} {revenueBudget.weekend.currency} {revenueBudget.weekend.endDate}</p>}
+                    { revenueBudget.worldwide.amount && <p>Світовий збір: {revenueBudget.worldwide.amount} {revenueBudget.worldwide.currency}</p>}
+                    { revenueBudget.lifetime.amount && <p>Збір США і Канада: {revenueBudget.lifetime.amount} {revenueBudget.lifetime.currency}</p>}
+                </div>
+            </div>
+            <div className="moreLikeThis">
+                {
+                    moreLikeThis.map(i=>
+                        <div key={i.id}>
+                            <Link to={"/movie/"+i.id} >{i.name}</Link>
+                            <span>{i.year}</span>
+                            <span>{i.rating}</span>
+                            <img style={{width:"100px"}} src={i.imageUrl} alt={i.name}/>
+                        </div>
+                    )
+                }
+            </div>
         </div>
     )
 }

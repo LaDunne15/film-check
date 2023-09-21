@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import Titles from "./Titles";
 import { useNavigate } from "react-router-dom";
+import { addTitle, clearTitles } from '../features/recentView/recentViewSlice'
+import { useDispatch, useSelector } from "react-redux";
+
 function Main() {
+  const count = useSelector((state) => state.recentViews.value)
+  const dispatch = useDispatch()
 
     
   const [data, setData] = useState(null); // To store fetched data
@@ -57,12 +62,19 @@ function Main() {
         <input type="search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
         <input type="button" onClick={find} value="Пошук"/>
       </form>
-      <h1>Fetched Data</h1>
-      {
-        data.map((i,index)=>
-          <Titles key={index} titles={i}/>
-        )
-      }
+
+      <div>
+        <span>{count}</span>
+        <button
+          onClick={() => dispatch(addTitle("ididid"))}
+        >
+        
+          Decrement
+        </button>
+        <button onClick={() => dispatch(clearTitles())}>
+          Clear All
+        </button>
+      </div>
     </div>
   );
 }

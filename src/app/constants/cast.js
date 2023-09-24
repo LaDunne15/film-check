@@ -1,4 +1,4 @@
-export default {
+const cast = {
     id: "",
     name: "",
     imageUrl: "",
@@ -6,3 +6,5 @@ export default {
         name:""
     }]
 }
+
+export default cast;

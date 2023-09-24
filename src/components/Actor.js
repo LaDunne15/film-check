@@ -31,6 +31,7 @@ function Actor() {
     const [ errorData, setErrorData ] = useState([]);
 
     useEffect(()=>{
+        setIsLoading(true);
         titlesService.getTitlesByIds(actor.titles.join(",")).then(
             res=>res.json().then(data=>{
                 if(res.ok) {
@@ -43,6 +44,7 @@ function Actor() {
                             rating: i.ratingsSummary?.aggregateRating
                         }))
                     );
+                    setIsLoading(false);
                 } else {
                     setErrorData(data);
                 }
@@ -72,6 +74,18 @@ function Actor() {
             })
         ).catch(err=>setErrorData(err));
     },[id, imageUrl]);
+
+    if(isError) {
+        <div>
+            Помилочка
+        </div>
+    }
+
+    if(isLoading) {
+        <div>
+            Завантаження бютжету...
+        </div>
+    }
 
     return (
         <div>

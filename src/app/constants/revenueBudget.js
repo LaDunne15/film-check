@@ -1,4 +1,4 @@
-export default {
+const revenueBudget = {
     production: {
         amount:0,
         currency:""
@@ -17,3 +17,5 @@ export default {
         currency:""
     }
 }
+
+export default revenueBudget;

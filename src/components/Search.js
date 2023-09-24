@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MovieMini from "./MovieMini";
+import movieMini from "../app/constants/movieMini";
+import { titlesService } from "../services/titlesService";
 
 function Search() {
 
-    const [ movies, setMovies] = useState([]);
+    const [ movies, setMovies] = useState([movieMini]);
     const [ isLoading, setIsLoading] = useState(true); // To track loading state
-    const [ error, setError] = useState(false); // To track any errors
+    const [ isError, setIsError] = useState(false); // To track any errors
+    const [ errorData, setErrorData ] = useState([]);
 
     const [ currentString, setCurrentString ] = useState("");
     const [ currentPage, setCurrentPage ] = useState(1);
@@ -30,6 +33,10 @@ function Search() {
     },[]);
 
     useEffect(()=>{
+        setIsError(true);
+    },[errorData]);
+
+    useEffect(()=>{
         if(currentString) {
             find(currentString,currentPage);
             navigate("/search/"+currentString+"/"+currentPage);
@@ -50,34 +57,37 @@ function Search() {
     }
 
     const find = async (_search,_page) => {
-        setError(false);
         setIsLoading(true);
-        const apiUrl = 'https://moviesdatabase.p.rapidapi.com/titles/search/title/'+_search+"?sort=year.decr&exact=false&limit=30&page="+_page;
-        //titleType?tvSeries
-        await fetch(apiUrl, {
-            method: "GET",
-            headers: {
-                'X-RapidAPI-Key': "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12",
-                "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (!response.ok) {
-                setError(true);
-            }
-            return response.json(); 
-        })
-        .then((data) => {
-            setMovies(data.results);
-            setPrevPage(Number(data.page)>1?Number(data.page-1):null);
-            setNextPage(data.next?Number(data.page)+1:null);
-            setIsLoading(false); 
-        })
-        .catch((error) => {
-            setError(error);
-            setIsLoading(false);
-        });
+        titlesService.getTitlesByName(_search,_page).then(
+            res=>res.json().then(data=>{
+                if(res.ok) {
+                    setMovies(data.results.map(i=>({
+                        id: i.id,
+                        name: i.originalTitleText?.text,
+                        imageUrl: i.primaryImage?.url,
+                        year: i.releaseYear?.year,
+                        rating: i.ratingsSummary?.aggregateRating
+                    })));
+                    setPrevPage(Number(data.page)>1?Number(data.page-1):null);
+                    setNextPage(data.next?Number(data.page)+1:null);
+                    setIsLoading(false); 
+                } else {
+                    setErrorData(data);
+                }
+            })
+        ).catch(err=>setErrorData(err));
+    }
+
+    if(isError) {
+        <div>
+            Помилочка
+        </div>
+    }
+
+    if(isLoading) {
+        <div>
+            Завантаження бютжету...
+        </div>
     }
 
     return (
@@ -93,9 +103,7 @@ function Search() {
                 </div>
             }
             {
-                (!error) && (!isLoading) && movies.map((i,index)=>
-                    <MovieMini key={index} movieData={i}/>
-                )
+                movies.map(i=><MovieMini key={i.id} movieData={i}/>)
             }
         </div>
     )

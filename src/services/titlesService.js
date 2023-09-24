@@ -18,6 +18,13 @@ class TitleService {
         })
     }
 
+    async getTitlesByName(name,page) {
+        return await fetch(`https://moviesdatabase.p.rapidapi.com/titles/search/title/${name}?sort=year.decr&exact=false&info=custom_info&limit=30&page=${page}`, {
+            method: "GET",
+            headers: this.headers
+        })
+    }
+
     async getTitleCustomInfo(id) {
         return await fetch(`https://moviesdatabase.p.rapidapi.com/titles/${id}?info=custom_info`, {
             method: "GET",

@@ -1,4 +1,4 @@
-import Main from "./components/Main";
+import Main from "./pages/Main";
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import Search from "./components/Search";
 import Movie from "./components/movie/Movie";

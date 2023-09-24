@@ -1,8 +1,8 @@
 class TitleService {
 
     constructor () {
-        //this.key = "94e8a93e32mshfec3feee4ab31ccp1407c2jsn9e21d1465047";
-        this.key =   "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12";
+        this.key = "94e8a93e32mshfec3feee4ab31ccp1407c2jsn9e21d1465047";
+        //this.key =   "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12";
         this.headers = {
             'X-RapidAPI-Key': this.key,
             "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",
@@ -48,6 +48,13 @@ class TitleService {
 
     async getTitlePrincipalCast(id) {
         return await fetch(`https://moviesdatabase.p.rapidapi.com/titles/${id}?info=principalCast`, {
+            method: "GET",
+            headers: this.headers
+        })
+    }
+
+    async getTopBoxOfficeLastWeekend() {
+        return await fetch(`https://moviesdatabase.p.rapidapi.com/titles?list=top_boxoffice_last_weekend_10`, {
             method: "GET",
             headers: this.headers
         })

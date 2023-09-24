@@ -1,28 +1,24 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
+import movieMini from "../app/constants/movieMini";
 
 function MovieMini({movieData}) {
 
-    const [movie,setMovie] =useState({
-        id:"",
-        titleText:{
-            text:""
-        },
-        primaryImage:{
-            url:""
-        }
-    });
+    const [movie,setMovie] =useState(movieMini);
 
     useEffect(()=>{
         setMovie(movieData);
     },[movieData]);
 
     return (
-        <div>
-            {movie.titleText.text}
-            {movie.primaryImage?<img className="image" src={movie.primaryImage.url} alt="Фото не завантажилось"/>:"Без фото"}
-            <Link to={"/movie/"+movie.id} >До фільму</Link>
+        <div>            
+            <Link to={"/movie/"+movie.id}>{movie.name}</Link>            
+            {   
+                movie.imageUrl? <img className="image" src={movie.imageUrl} loading="lazy" alt="Фото не завантажилось"/>:"Без фото"
+            }
+            <h6>{ movie.year }</h6>
+            <h6>{ movie.rating }</h6>
         </div>
     )
 }

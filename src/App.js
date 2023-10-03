@@ -1,31 +1,29 @@
 import Main from "./pages/Main";
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import Search from "./components/Search";
-import Movie from "./components/movie/Movie";
-import Actor from "./components/Actor";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Search from "./pages/Search";
+import Movie from "./pages/Movie";
+import Actor from "./pages/Actor";
+import HeaderElement from "./components/header/headerElement";
+import FooterElement from "./components/footer/footerElement";
+
+import "./static/styles/constants.css";
+
 function App() {
 
-  return (
-    <div>
-      <Router>
-      <nav>
-          <ul>
-            <li>
-              <Link to="/">Домашня сторінка</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <hr />
-        <Routes>   
-          <Route exact path="/" element={<Main/>} />
-          <Route path="/search/:search/:page?" element={<Search/>} />
-          <Route path="/movie/:id" element={<Movie/>}/>
-          <Route path="/actor/:id/:imageUrl" element={<Actor/>}/>
-        </Routes>
-      </Router>
-    </div>
-  )
+  	return (
+    	<>
+      		<Router>
+				<HeaderElement/>
+        		<Routes>   
+	          		<Route exact path="/" element={<Main/>} />
+    	      		<Route path="/search/:search/:page?" element={<Search/>} />
+        	  		<Route path="/movie/:id" element={<Movie/>}/>
+          			<Route path="/actor/:id/:imageUrl" element={<Actor/>}/>
+	        	</Routes>
+				<FooterElement/>
+      		</Router>
+    	</>
+	)
 }
 
 export default App;

@@ -1,0 +1,13 @@
+.header {
+    background-color: var(--black);
+}
+
+.header .link {
+    color: var(--yellow);
+    text-decoration: none;
+}
+
+.header .logo {
+    color: var(--yellow);
+    text-shadow: 5px 5px 5px var(--blue);
+}

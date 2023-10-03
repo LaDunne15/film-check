@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import MovieMini from "./MovieMini";
+import MovieMini from "../components/MovieMini";
 import movieMini from "../app/constants/movieMini";
 import { titlesService } from "../services/titlesService";
 

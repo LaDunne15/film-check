@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
+import Card from 'react-bootstrap/Card';
 import movieMini from "../app/constants/movieMini";
+
+import NoMoviePhoto from "../static/images/MovieNoPhoto.jpg";
 
 function MovieMini({movieData}) {
 
@@ -12,14 +15,18 @@ function MovieMini({movieData}) {
     },[movieData]);
 
     return (
-        <div>            
-            <Link to={"/movie/"+movie.id}>{movie.name}</Link>            
-            {   
-                movie.imageUrl? <img className="image" src={movie.imageUrl} loading="lazy" alt="Фото не завантажилось"/>:"Без фото"
+        <Card>
+            {
+                movie.imageUrl?<Card.Img style={{ width: '18rem' }} src={movie.imageUrl}/>:
+                <Card.Img style={{ width: '18rem' }} src={NoMoviePhoto}/>
             }
-            <h6>{ movie.year }</h6>
-            <h6>{ movie.rating }</h6>
-        </div>
+            <Card.Body>
+                <Card.Title>
+                    <Link to={"/movie/"+movie.id}>{movie.name}</Link>  
+                </Card.Title>
+                <Card.Subtitle>{movie.year} ⭐{movie.rating}</Card.Subtitle>
+            </Card.Body>
+        </Card>
     )
 }
 

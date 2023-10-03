@@ -1,0 +1,15 @@
+@import "./reset.css";
+@import url('https://fonts.cdnfonts.com/css/cyberpunk-is-not-dead');
+
+:root{
+    /*Colors*/
+    --black: #010001;
+    --crimson: #850c3e;
+    --yellow: #ffff01;
+    --blue: #01feea;
+
+    
+
+
+    --bold-font: 'Cyberpunk Is Not Dead', sans-serif;                     
+}

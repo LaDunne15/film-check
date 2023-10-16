@@ -1,17 +1,10 @@
 import { Link } from "react-router-dom"
-import "./header.css";
+import "./header.scss";
 
 function HeaderElement() {
     return (
         <nav className="header">
-			<span className="logo">
-				FilmCHECK
-			</span>
-			<ul>
-				<li>
-					<Link className="link" to="/">Home</Link>
-				</li>
-			</ul>
+			<Link className="logo" to="/">FILM<b className="logo-2">CHECK</b></Link>
 		</nav>
     )
 }

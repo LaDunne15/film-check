@@ -7,20 +7,26 @@ import HeaderElement from "./components/header/headerElement";
 import FooterElement from "./components/footer/footerElement";
 
 import "./static/styles/constants.css";
+import "./static/styles/app.css";
+
+import ScrollToTop from "./utils/scrollToTop";
 
 function App() {
 
   	return (
     	<>
       		<Router>
-				<HeaderElement/>
-        		<Routes>   
-	          		<Route exact path="/" element={<Main/>} />
-    	      		<Route path="/search/:search/:page?" element={<Search/>} />
-        	  		<Route path="/movie/:id" element={<Movie/>}/>
-          			<Route path="/actor/:id/:imageUrl" element={<Actor/>}/>
-	        	</Routes>
-				<FooterElement/>
+				<ScrollToTop/>
+				<div className="app">
+					<HeaderElement/>
+        			<Routes>   
+	          			<Route exact path="/" element={<Main/>} />
+    	      			<Route path="/search/:search/:page?" element={<Search/>} />
+        	  			<Route path="/movie/:id" element={<Movie/>}/>
+	          			<Route path="/actor/:id/:imageUrl" element={<Actor/>}/>
+	        		</Routes>
+					<FooterElement/>
+				</div>
       		</Router>
     	</>
 	)

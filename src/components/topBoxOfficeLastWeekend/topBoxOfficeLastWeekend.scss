@@ -1,0 +1,35 @@
+.box-office {
+    display: block;
+    text-align: center;
+
+    .label {
+        font-weight: bold;
+        color: var(--yellow);
+        display: flex;
+        justify-content: center;
+
+        span {
+            align-self: center;
+            padding: 5px;
+            background-color: black;
+        }
+    }
+
+    .movies-weekend {
+        display: inline-grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 10px;
+        border-top: 3px solid black;
+        border-left: 3px solid black;
+    }
+}
+
+@media (min-width: 769px) {
+
+    .box-office {
+        .movies-weekend {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+    }
+    
+}

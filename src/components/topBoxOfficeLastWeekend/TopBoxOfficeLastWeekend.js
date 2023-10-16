@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { titlesService } from "../services/titlesService";
-import movieMini from "../app/constants/movieMini";
-import MovieMini from "./MovieMini";
+import { titlesService } from "../../services/titlesService";
+import movieMini from "../../app/constants/movieMini";
+import MovieMini from "../movieMini/MovieMini";
+import "./topBoxOfficeLastWeekend.scss";
 
 function TopBoxOfficeLastWeekend() {
 
@@ -28,11 +29,17 @@ function TopBoxOfficeLastWeekend() {
     },[]);
 
     return (
-        <div>
-            Останній касовий збір:
+        <div className="box-office">
+            <div className="label">
+                <span>
+                    Top 10 Box Office last weekend
+                </span>
+            </div>
+            <div className="movies-weekend">
             {
                 movies.map(i=><MovieMini movieData={i} key={i.id}/>)
             }
+            </div>
         </div>
     )
 }

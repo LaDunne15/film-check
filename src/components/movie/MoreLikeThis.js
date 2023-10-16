@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { titlesService } from "../../services/titlesService";
-import MovieMini from "../MovieMini";
+import MovieMini from "../movieMini/MovieMini";
 import movieMini from "../../app/constants/movieMini";
 
 

@@ -3,7 +3,7 @@ import { clearTitles } from '../features/recentView/recentViewSlice';
 import { useEffect, useState } from "react";
 import { titlesService } from "../services/titlesService";
 import movieMini from "../app/constants/movieMini";
-import MovieMini from "./MovieMini";
+import MovieMini from "./movieMini/MovieMini";
 
 function RecentViews() {
 

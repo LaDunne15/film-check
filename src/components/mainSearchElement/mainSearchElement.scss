@@ -1,0 +1,57 @@
+.search {
+
+    background-color: var(--yellow);
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+
+    .request-text {
+        font-size: x-large;
+    }
+
+    .examples {
+        font-size: small;
+    }
+
+    .inputLabel {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        input {
+            flex: 1;
+            background: none;
+            border: 1px solid black;
+            max-width: 300px;
+            font-size: large;
+            font-family: var(--oswaldFont);
+        }
+
+        input::-webkit-search-cancel-button{
+            position:relative;
+            color: white;
+        }
+
+        button {
+            display: block;
+            width: 50px;
+            background-color: black;
+            border: none;
+
+            img {
+                display: block;
+                height: 24px;
+                width: 24px;
+                align-self: center;
+            }
+        }
+
+        * {
+            padding: 5px;
+        }
+    }
+}

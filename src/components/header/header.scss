@@ -1,0 +1,28 @@
+.header {
+    background-color: var(--black);
+    padding: 20px;
+    max-height: 10vh;
+  
+    .link {
+      color: var(--yellow);
+      text-decoration: none;
+    }
+  
+    .logo {
+      display: block;
+      color: var(--white);
+      text-shadow: 4px 4px 7px var(--blue);
+      text-decoration: none;
+      font-style: italic;
+      font-weight: bold;
+      font-family: var(--rubikFont);
+    }
+  
+    .logo-2 {
+      color: var(--yellow);
+      font-style: normal;
+      font-size: 25px;
+      font-family: var(--cyberFont);
+    }
+  }
+  

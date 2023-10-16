@@ -1,6 +1,6 @@
 import RecentViews from "../components/RecentViews";
-import TopBoxOfficeLastWeekend from "../components/TopBoxOfficeLastWeekend";
-import MainSearchElement from "../components/MainSearchElement";
+import TopBoxOfficeLastWeekend from "../components/topBoxOfficeLastWeekend/TopBoxOfficeLastWeekend";
+import MainSearchElement from "../components/mainSearchElement/MainSearchElement";
 
 function Main() {
     return (

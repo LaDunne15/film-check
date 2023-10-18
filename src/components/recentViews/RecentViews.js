@@ -3,6 +3,7 @@ import { clearTitles } from '../../features/recentView/recentViewSlice';
 import { useEffect, useState } from "react";
 import { titlesService } from "../../services/titlesService";
 import movieMini from "../../app/constants/movieMini";
+import NoMoviePhoto from "../../static/icons/movieYellow.png";
 
 import "./recentViews.scss";
 import { Link } from "react-router-dom";
@@ -50,7 +51,9 @@ function RecentViews() {
             {
                 movies.map(i=>
                     <div className="movie" key={i.id}>
-                        <img src={i.imageUrl} alt={i.name}/>
+                        {
+                            i.imageUrl?<img src={i.imageUrl} alt={i.name}/>:<img src={NoMoviePhoto} alt={i.name}/>
+                        }
                         <Link className="nameLink" to={"/movie/"+i.id}>{i.name}</Link> 
                         { i.rating?<span className="rating">{i.rating}</span>:<span className="no-rating">-</span> }
                     </div>

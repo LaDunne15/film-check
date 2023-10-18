@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import movieMini from "../../app/constants/movieMini";
 
-import NoMoviePhoto from "../../static/images/MovieNoPhoto.jpg";
+import NoMoviePhoto from "../../static/icons/movieBlack.png";
 import "./movieMini.scss";
 
 function MovieMini({movieData}) {
@@ -18,7 +18,7 @@ function MovieMini({movieData}) {
         <Card className="mini-movie">
             {
                 movie.imageUrl?<Card.Img className="image" src={movie.imageUrl}/>:
-                <Card.Img className="image" src={NoMoviePhoto}/>
+                <div className="no-image"><Card.Img src={NoMoviePhoto}/></div>
             }
             <Card.Body className="content">
                 <Card.Title className="movie-name">

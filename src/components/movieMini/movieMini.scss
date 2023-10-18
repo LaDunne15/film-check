@@ -12,6 +12,23 @@
         display: block;
     }
 
+    .no-image {
+        aspect-ratio: 2/3;
+        width: 100%;
+        max-width: 300px;
+        align-self: center;
+        object-fit: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        >* {
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+        }
+    }
+
     .image:after {
         position: absolute;
         content:"";

@@ -1,0 +1,29 @@
+footer {
+
+    .author_links {
+        display: flex;
+        justify-content: space-evenly;
+        padding-top: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+
+        span {
+            font-weight: bold;
+            align-self: center;
+        }
+
+        a {
+            img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    }
+
+    .copyright {
+        
+        padding: 20px 0px;
+        font-weight: 500;
+        text-align: center;
+    }
+}

@@ -2,3 +2,7 @@ body {
     font-family: var(--oswaldFont);
     background-color: var(--yellow);
 }
+
+button {
+    font-family: var(--oswaldFont);
+}

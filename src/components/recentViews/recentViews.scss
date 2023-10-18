@@ -1,0 +1,84 @@
+.recentViews {
+
+    &::before, &::after {
+        content: " ";
+        display: block;
+        background: repeating-linear-gradient(
+            -45deg,
+            var(--yellow),
+            var(--yellow) 5px,
+            var(--black) 5px,
+            var(--black) 10px
+        );
+        height: 30px;
+    }
+
+    background-color: var(--black);
+    color: var(--yellow);
+
+    >*{
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .titleBlock {
+        display: flex;
+        flex-direction: row;
+        padding: 15px;
+
+        span {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100px;
+            background: var(--yellow);
+            border: none;
+            font-style: italic;
+        }
+    }
+    
+    .movies {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        .movie {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+
+            img {
+                aspect-ratio: 1/1;
+                width: 30px;
+                object-fit: cover;
+            }
+
+            .nameLink {
+                flex: 1;
+                color: var(--yellow);
+                align-self: center;
+                font-weight: 300;
+
+                &:hover {
+                    color: var(--blue);
+                }
+            }
+
+            .rating {
+
+                width: 40px;
+
+                &::before {
+                    content: "⭐";
+                }
+            }
+
+            .no-rating {
+                width: 40px;
+                text-align: center;
+            }
+        }
+    }
+}

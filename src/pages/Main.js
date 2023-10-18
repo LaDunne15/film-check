@@ -1,4 +1,4 @@
-import RecentViews from "../components/RecentViews";
+import RecentViews from "../components/recentViews/RecentViews";
 import TopBoxOfficeLastWeekend from "../components/topBoxOfficeLastWeekend/TopBoxOfficeLastWeekend";
 import MainSearchElement from "../components/mainSearchElement/MainSearchElement";
 

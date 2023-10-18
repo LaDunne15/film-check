@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { clearTitles } from '../features/recentView/recentViewSlice';
+import { clearTitles } from '../../features/recentView/recentViewSlice';
 import { useEffect, useState } from "react";
-import { titlesService } from "../services/titlesService";
-import movieMini from "../app/constants/movieMini";
-import MovieMini from "./movieMini/MovieMini";
+import { titlesService } from "../../services/titlesService";
+import movieMini from "../../app/constants/movieMini";
+
+import "./recentViews.scss";
+import { Link } from "react-router-dom";
 
 function RecentViews() {
 
@@ -31,17 +33,30 @@ function RecentViews() {
         )
     },[moviesId]);
 
+    if(!movies.length) {
+        return (
+            <></>
+        )
+    }
+
     return (
-        <div>
-            { movies.length>0 && 
-            <>
-                Останні переглянуті:
+        <div className="recentViews">
+            <div className="titleBlock">
+                <span>Recent views</span>
                 <button onClick={() => dispatch(clearTitles())}>Clear All</button>
-                {
-                    movies.map(i=><MovieMini movieData={i} key={i.id}/>)
-                }
-            </>
+            </div>
+            
+            <div className="movies">
+            {
+                movies.map(i=>
+                    <div className="movie" key={i.id}>
+                        <img src={i.imageUrl} alt={i.name}/>
+                        <Link className="nameLink" to={"/movie/"+i.id}>{i.name}</Link> 
+                        { i.rating?<span className="rating">{i.rating}</span>:<span className="no-rating">-</span> }
+                    </div>
+                )
             }
+            </div>
         </div>
     )
 }

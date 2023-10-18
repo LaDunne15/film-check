@@ -1,8 +1,6 @@
 .mini-movie {
     display: flex;
     flex-direction: column;
-    border-bottom: 3px solid black;
-    border-right: 3px solid black;
 
     .image {
         aspect-ratio: 2/3;
@@ -33,9 +31,12 @@
             flex-direction: column;
             justify-content: center;
 
+            >*{
+                color: black;
+            }
+
             .movie-name-link {
                 display: block;
-                color: black;
                 font-weight: 500;
             }
         }

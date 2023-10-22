@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { titlesService } from "../../services/titlesService";
-import _awards from "../../app/constants/awards";
+import { titlesService } from "../../../services/titlesService";
+import _awards from "../../../app/constants/awards";
 
 function Awards({id}) {
 

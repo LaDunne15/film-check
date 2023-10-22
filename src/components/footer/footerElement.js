@@ -12,16 +12,16 @@ function FooterElement() {
                     find me on ...
                 </span>
 				<a href="https://t.me/magenta_human">
-					<img class="icon" src={telegramIco} alt="magenta_human" />
+					<img className="icon" src={telegramIco} alt="magenta_human" />
 				</a>
 				<a href="https://github.com/LaDunne15" target="_blank" rel="noreferrer">
-					<img class="icon" src={gitHubIco} alt="gitHub"/>
+					<img className="icon" src={gitHubIco} alt="gitHub"/>
 				</a>
 				<a href="https://www.linkedin.com/in/владислав-кошельний-a56226265/" target="_blank" rel="noreferrer">
-					<img class="icon" src={linkedInIco} alt="LinkedIn"/>
+					<img className="icon" src={linkedInIco} alt="LinkedIn"/>
 				</a>
 				<a href="mailto:koshelnyi.vladyslav@gmail.com">
-					<img class="icon" src={gmailIco} alt="Gmail"/>
+					<img className="icon" src={gmailIco} alt="Gmail"/>
 				</a>
 			</div>
             <div className="copyright">

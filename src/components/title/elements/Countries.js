@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { titlesService } from "../../services/titlesService";
-import image from "../../app/constants/image";
-function Images({id}) {
+import { titlesService } from "../../../services/titlesService";
 
-    const [ images, setImages ] = useState([image]);
+function Countries({id}) {
+
+    const [ counries, setCounries ] = useState([]);
 
     const [ isLoading, setIsLoading] = useState(true); // To track loading state
     const [ isError, setIsError] = useState(false); // To track any errors
@@ -15,15 +15,10 @@ function Images({id}) {
 
     useEffect(()=>{
         setIsLoading(true);
-        titlesService.getTitleImages(id).then(
+        titlesService.getTitleCountries(id).then(
             res=>res.json().then(data=>{
                 if(res.ok) {
-                    setImages(
-                        data.results.titleMainImages.edges.map(i=>({
-                            url: i.node.url,
-                            plainText: i.node.caption.plainText
-                        }))
-                    );
+                    setCounries(data.results.countriesOfOrigin.countries.map(i=>i.id));
                     setIsLoading(false);
                 } else {
                     setErrorData(data);
@@ -45,12 +40,13 @@ function Images({id}) {
     }
 
     return (
-        <div className="images">
+        <div className="countries">
+            <h6>Країни:</h6>
             {
-                images.map((i,index)=><img style={{width:"100px"}} loading="lazy" key={index} src={i.url} alt={i.plainText}/>)
+                counries.map((i,index)=><div key={index}>{i}</div>)
             }
         </div>
     )
 }
 
-export default Images;
+export default Countries;

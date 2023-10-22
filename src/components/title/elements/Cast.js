@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { encode } from 'base-64';
 
-import cast from "../../app/constants/cast";
-import { titlesService } from "../../services/titlesService";
+import cast from "../../../app/constants/cast";
+import { titlesService } from "../../../services/titlesService";
 import { Link } from "react-router-dom";
 
 function Cast({id}) {

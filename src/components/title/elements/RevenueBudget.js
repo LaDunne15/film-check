@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import budget from "../../app/constants/revenueBudget";
-import { titlesService } from "../../services/titlesService.js";
+import budget from "../../../app/constants/revenueBudget";
+import { titlesService } from "../../../services/titlesService.js";
 
 function RevenueBudget({id}) {
     

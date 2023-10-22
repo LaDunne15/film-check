@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { titlesService } from "../../services/titlesService";
-import MovieMini from "../movieMini/MovieMini";
-import movieMini from "../../app/constants/movieMini";
+import { titlesService } from "../../../services/titlesService";
+import MovieMini from "../../movieMini/MovieMini";
+import movieMini from "../../../app/constants/movieMini";
 
 
 function MoreLikeThis ({id}){

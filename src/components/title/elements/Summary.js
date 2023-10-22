@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { titlesService } from "../../services/titlesService";
+import { titlesService } from "../../../services/titlesService";
 
-function Countries({id}) {
+function Summary({id}) {
 
-    const [ counries, setCounries ] = useState([]);
+    const [ summaries, setSummaries ] = useState("");
 
     const [ isLoading, setIsLoading] = useState(true); // To track loading state
     const [ isError, setIsError] = useState(false); // To track any errors
@@ -15,10 +15,10 @@ function Countries({id}) {
 
     useEffect(()=>{
         setIsLoading(true);
-        titlesService.getTitleCountries(id).then(
+        titlesService.getTitlSummaries(id).then(
             res=>res.json().then(data=>{
                 if(res.ok) {
-                    setCounries(data.results.countriesOfOrigin.countries.map(i=>i.id));
+                    setSummaries(data.results.summaries.edges[0].node.plotText.plaidHtml);
                     setIsLoading(false);
                 } else {
                     setErrorData(data);
@@ -40,13 +40,10 @@ function Countries({id}) {
     }
 
     return (
-        <div className="countries">
-            <h6>Країни:</h6>
-            {
-                counries.map((i,index)=><div key={index}>{i}</div>)
-            }
+        <div className="summaries">
+            <h5>{summaries}</h5>
         </div>
     )
 }
 
-export default Countries;
+export default Summary;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { titlesService } from "../../services/titlesService";
+import { titlesService } from "../../../services/titlesService";
+import image from "../../../app/constants/image";
+function Images({id}) {
 
-function Summary({id}) {
-
-    const [ summaries, setSummaries ] = useState("");
+    const [ images, setImages ] = useState([image]);
 
     const [ isLoading, setIsLoading] = useState(true); // To track loading state
     const [ isError, setIsError] = useState(false); // To track any errors
@@ -15,10 +15,15 @@ function Summary({id}) {
 
     useEffect(()=>{
         setIsLoading(true);
-        titlesService.getTitlSummaries(id).then(
+        titlesService.getTitleImages(id).then(
             res=>res.json().then(data=>{
                 if(res.ok) {
-                    setSummaries(data.results.summaries.edges[0].node.plotText.plaidHtml);
+                    setImages(
+                        data.results.titleMainImages.edges.map(i=>({
+                            url: i.node.url,
+                            plainText: i.node.caption.plainText
+                        }))
+                    );
                     setIsLoading(false);
                 } else {
                     setErrorData(data);
@@ -40,10 +45,12 @@ function Summary({id}) {
     }
 
     return (
-        <div className="summaries">
-            <h5>{summaries}</h5>
+        <div className="images">
+            {
+                images.map((i,index)=><img style={{width:"100px"}} loading="lazy" key={index} src={i.url} alt={i.plainText}/>)
+            }
         </div>
     )
 }
 
-export default Summary;
+export default Images;

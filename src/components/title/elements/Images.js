@@ -13,6 +13,16 @@ function Images({id}) {
         setIsError(true);
     },[errorData]);
 
+    function imageExists(image_url){
+
+        var http = new XMLHttpRequest();
+    
+        http.open('HEAD', image_url, false);
+        http.send();
+    
+        return http.status !== 404?image_url:"";
+    
+    }
     useEffect(()=>{
         setIsLoading(true);
         titlesService.getTitleImages(id).then(
@@ -20,9 +30,9 @@ function Images({id}) {
                 if(res.ok) {
                     setImages(
                         data.results.titleMainImages.edges.map(i=>({
-                            url: i.node.url,
+                            url: imageExists(i.node.url),
                             plainText: i.node.caption.plainText
-                        }))
+                        })).filter((i)=>i.url!=="")
                     );
                     setIsLoading(false);
                 } else {
@@ -44,11 +54,51 @@ function Images({id}) {
         </div>
     }
 
+    const event1 = (a) => {
+        setModalActive(true);
+        setCurrentImage(a);
+    }
+
+    const nextImage = () => {
+        if(currentImage<images.length-1) {
+            setCurrentImage(currentImage+1);
+        }
+    }
+
+    const prevImage = () => {
+        if(currentImage>0) {
+            setCurrentImage(currentImage-1);
+        }
+    }
+
+    const [modalActive, setModalActive] = useState(false);
+    const [currentImage, setCurrentImage] = useState(0);
+
     return (
-        <div className="images">
+        <div className="imagesBlock">
             {
-                images.map((i,index)=><img style={{width:"100px"}} loading="lazy" key={index} src={i.url} alt={i.plainText}/>)
+                modalActive &&
+                <div className="modal">
+                    <div className="button"><button onClick={()=>setModalActive(false)}>CLOSE &#10005;</button></div>
+                    <div className="imageData">
+                        <img src={images[currentImage].url} alt={images[currentImage].plainText}/>
+                    </div>
+                    <div className="buttons">
+                        <div>{ currentImage>0?<button className="left" onClick={prevImage}><span>&#60;</span></button>:<div></div>}</div>
+                        <span>{images[currentImage].plainText}</span>
+                        <div>{ currentImage<images.length-1?<button className="right" onClick={nextImage}><span>&#62;</span></button>:<div></div>}</div>
+                    </div>
+                </div>
             }
+            <div className="images">
+            {
+                images.slice(0,3).map((i,index)=>
+                    <div key={index}>
+                        <img onClick={()=>event1(index)} loading="lazy" src={i.url} alt={i.plainText}/>
+                    </div>
+                )
+            }
+            </div>
         </div>
     )
 }

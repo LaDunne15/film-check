@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { titlesService } from "../../../services/titlesService";
 
+let data = require("../../../static/countries.json");
+
 function Countries({id}) {
 
     const [ counries, setCounries ] = useState([]);
@@ -39,12 +41,20 @@ function Countries({id}) {
         </div>
     }
 
+    function getCountyName(countryCode) {
+        return data.filter( function (data) {
+            return data.code === countryCode;
+        })[0].name;
+    }
+
     return (
         <div className="countries">
-            <h6>Країни:</h6>
+            <span>Countries</span>
+            <div className="countriesList">
             {
-                counries.map((i,index)=><div key={index}>{i}</div>)
+                counries.map((i,index)=><span key={index} className="country">{getCountyName(i)}</span>)
             }
+            </div>
         </div>
     )
 }

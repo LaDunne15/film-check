@@ -13,12 +13,12 @@ function Title ({id}) {
     return (
         <div className="title">
             <MainInfo id={id}/>
-            <Summary id={id}/>
             <Countries id={id}/>
             <Images id={id}/>
             <Cast id={id}/>
             <Awards id={id}/>
             <RevenueBudget id={id}/>
+            <Summary id={id}/>
             <MoreLikeThis id={id}/>
         </div>
     )

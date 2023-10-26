@@ -166,7 +166,7 @@ function MainInfo({id}) {
                     </div>
                 </div>
             }
-            { title.trailerUrl&&
+            { false && title.trailerUrl&&
                 <div className="titleTrailer"><ReactPlayer width="100%" height="100%" url={title.trailerUrl} /></div>
             }
         </div>

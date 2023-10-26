@@ -5,6 +5,8 @@ import cast from "../../../app/constants/cast";
 import { titlesService } from "../../../services/titlesService";
 import { Link } from "react-router-dom";
 
+import ActorImage from "./ActorImage";
+
 function Cast({id}) {
 
     const [ extendedCast, setExtendedCast] = useState([cast]);
@@ -18,7 +20,6 @@ function Cast({id}) {
     useEffect(()=>{
         setIsError(true);
     },[errorData]);
-
 
     useEffect(()=>{
         
@@ -68,29 +69,58 @@ function Cast({id}) {
     }
 
     return (
-        <div className="cast">
+        <div className="castBlock">
             {
-                !isLoading1 && <><h3>Головні ролі:</h3>
-                {
-                    principalCast && principalCast.map(i=>
-                        <div key={i.id}>
-                            <img loading="lazy" style={{width:"100px"}} src={i.imageUrl} alt={i.name}/>
-                            <Link to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
-                            <span> {i.characters?.join(" ")} </span>
-                        </div>
-                    )
-                }</>
+                !isLoading1 && 
+                <div className="principalCast">
+                    <span>Main cast</span>
+                    <div className="actors">
+                    {
+                        principalCast && principalCast.map(i=>
+                            <div className="actor" key={i.id}>
+                                <ActorImage url={i.imageUrl} isYellow={true} />
+                                <Link className="actorName" to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
+                                <div className="characters">
+                                    {
+                                        i.characters.map ((j,index)=>
+                                            <span className="character" key={index}>
+                                                {j}
+                                            </span>
+                                        )
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
+                    </div>
+                </div>
             }
             {
-                !isLoading2 && <><h4>Додаткові ролі:</h4>{
-                    extendedCast && extendedCast.map(i=>
-                        <div key={i.id}>
-                            <img loading="lazy" style={{width:"100px"}} src={i.imageUrl} alt={i.name}/>
-                            <Link to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
-                            <span> {i.characters?.join(" ")} </span>
+                !isLoading2 && 
+                <div className="stribedBorder">
+                    <div className="extendedCast">
+                        <span>Addtional cast</span>
+                        <div className="actors">
+                        {
+                            extendedCast && extendedCast.map(i=>
+                                <div className="actor" key={i.id}>
+                                    <ActorImage url={i.imageUrl} isYellow={false} />
+                                    <Link className="actorName" to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
+                                    <div className="characters">
+                                        {
+                                            i.characters.map ((j,index)=>
+                                                <span className="character" key={index}>
+                                                    {j}
+                                                </span>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
                         </div>
-                    )
-                }</>
+                    </div>
+                </div>
             }
         </div>
     )

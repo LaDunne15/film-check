@@ -76,6 +76,7 @@ function Images({id}) {
 
     return (
         <div className="imagesBlock">
+            <span>Gallery</span>
             {
                 modalActive &&
                 <div className="modal">

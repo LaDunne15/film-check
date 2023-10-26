@@ -44,7 +44,7 @@ function Countries({id}) {
     function getCountyName(countryCode) {
         return data.filter( function (data) {
             return data.code === countryCode;
-        })[0].name;
+        })[0]?.name;
     }
 
     return (

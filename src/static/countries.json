@@ -1,4 +1,24 @@
 [
+  {
+    "name":"Soviet Union (USSR)",
+    "code": "SUHH"
+  },
+  {
+    "name":"Czechoslovakia",
+    "code":"CSHH"
+  },
+  {
+    "name":"Serbia and Montenegro",
+    "code":"CSXX"
+  },
+  {
+    "name":"German Democratic Republic (East Germany)",
+    "code":"DDDE"
+  },
+  {
+    "name":"Yugoslavia",
+    "code":"YUCS"
+  },
     {
       "name": "Afghanistan",
       "code": "AF",

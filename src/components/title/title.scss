@@ -228,6 +228,15 @@
     }
 
     .imagesBlock {
+
+        padding-bottom: 15px;
+
+        >span {
+            padding-left: 35px;
+            font-style: italic;
+            text-decoration: underline;
+        }
+
         .modal {  
             display: flex; /* Hidden by default */
             flex-direction: column;
@@ -313,6 +322,7 @@
         }
 
         .images {
+            padding-top: 10px;
             display: flex;
             flex-direction: row;
             >div {
@@ -322,6 +332,142 @@
                     width: 100%;
                     aspect-ratio: 1/1;
                     object-fit: cover;
+                }
+            }
+        }
+    }
+
+    .castBlock {
+
+        &::before, &::after {
+            content: " ";
+            display: block;
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--yellow),
+                var(--yellow) 5px,
+                var(--black) 5px,
+                var(--black) 10px
+            );
+            height: 30px;
+        }
+        
+        background-color: black;
+
+        .principalCast {
+
+            color: var(--yellow);
+            padding: 5px;
+            display: block;
+            text-align: center;
+
+            >span {
+                font-style: italic;
+                font-size: large;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .actors {
+                padding-top: 15px;
+                display: inline-grid;
+                grid-template-columns: 1fr 1fr;
+
+                .actor {
+                    flex: 1;
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    padding-top: 5px;
+
+                    img {
+                        width: 70px;
+                        height: 70px;
+                        aspect-ratio: 1/1;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        align-self: center;
+                    }
+
+                    .actorName {
+                        color: var(--yellow);
+                    }
+
+                    .characters {
+                        display: flex;
+                        flex-direction: column;
+
+                        .character {
+                            font-size: small;
+                            font-style: italic;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        .stribedBorder {
+            padding: 5px;
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--yellow),
+                var(--yellow) 5px,
+                var(--black) 5px,
+                var(--black) 10px
+            );
+            margin: 15px;
+            .extendedCast {
+                
+                padding: 5px;
+                background-color: var(--yellow);
+                display: block;
+                text-align: center;
+                
+                >span {
+                    font-style: italic;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+
+                .actors {
+                    padding-top: 15px;
+                    display: inline-grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+
+                    .actor {
+                        flex: 1;
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                        padding-top: 5px;
+    
+                        img {
+                            width: 50px;
+                            height: 50px;
+                            aspect-ratio: 1/1;
+                            object-fit: cover;
+                            border-radius: 50%;
+                            align-self: center;
+                        }
+
+                        .actorName {
+                            color: black;
+                            font-size: small;
+                        }
+    
+                        .characters {
+                            display: flex;
+                            flex-direction: column;
+    
+                            .character {
+                                font-size: x-small;
+                                font-style: italic;
+                            }
+                        }
+                    }
                 }
             }
         }

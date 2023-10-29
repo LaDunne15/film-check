@@ -6,6 +6,7 @@ import Images from "./elements/Images.js";
 import Countries from "./elements/Countries.js";
 import Summary from "./elements/Summary.js";
 import MainInfo from "./elements/MainInfo.js";
+import RecentViews from "../recentViews/RecentViews.js";
 
 import "./title.scss";
 
@@ -20,6 +21,7 @@ function Title ({id}) {
             <RevenueBudget id={id}/>
             <Summary id={id}/>
             <MoreLikeThis id={id}/>
+            <RecentViews/>
         </div>
     )
 }

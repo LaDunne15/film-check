@@ -20,7 +20,7 @@ function ActorImage({url,isYellow}) {
         checkImage(url).then((isValidUrl)=>{
             _setUrl(isValidUrl?url:(isYellow?ActorYellow:Actor));
         })
-    },[url])
+    },[url,isYellow]);
 
     return (
         <img src={_url} alt="actor"/>

@@ -20,6 +20,7 @@ function Awards({id}) {
         titlesService.getTitleAwards(id).then(
             res=>res.json().then(data=>{
                 if(res.ok) {
+                    console.log(data.results);
                     setAwards({
                         nominations: data.results.nominations?.total,
                         wins: data.results.wins?.total,
@@ -29,6 +30,7 @@ function Awards({id}) {
                             nominations: data.results.prestigiousAwardSummary?.nominations
                         }
                     });
+                    console.log(awards);
                     setIsLoading(false);
                 } else {
                     setErrorData(data);
@@ -50,17 +52,51 @@ function Awards({id}) {
     }
 
     return (
-        <div className="awards">
-            <p>
-                <span>
-                    { awards.prestigeAward.name && <span>Престижна нагорода {awards.prestigeAward.name}:</span> }
-                    { awards.prestigeAward.win>0 && <span> {awards.prestigeAward.wins} виграшів </span> }
-                    { awards.prestigeAward.nominations>0 && <span> {awards.prestigeAward.nominations} номінацій </span> }
-                </span>
-                { awards.wins>0 && <span> Виграшів: {awards.wins}</span> }
-                { awards.nominations>0 && <span> Номінацій: {awards.nominations} </span> }
-                { awards.nominations>0 && awards.wins>0 && <span>загалом</span> }
-            </p>
+        <div className="awardsBlock">
+            <span>Awards:</span>
+            <div className="awards">
+            {
+                awards.prestigeAward.name &&
+                <div className="prestigeAwards">
+                    <span>{awards.prestigeAward.name}: </span>
+                    <div className="total">
+                        {   
+                            awards.prestigeAward.wins>0 &&
+                            <div className="wins">
+                                <span>{awards.prestigeAward.wins}</span>
+                                <span>wins</span>
+                            </div>
+                        }
+                        {   
+                            awards.prestigeAward.nominations>0 &&
+                            <div className="nominations">
+                                <span>{awards.prestigeAward.nominations}</span>
+                                <span>nominations</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+                <div className="otherAwards">
+                    { awards.prestigeAward.name && <span>Other: </span>}
+                    <div className="total">
+                        {   
+                            awards.wins>0 &&
+                            <div className="wins">
+                                <span>{awards.wins}</span>
+                                <span>wins</span>
+                            </div>
+                        }
+                        {   
+                            awards.nominations>0 &&
+                            <div className="nominations">
+                                <span>{awards.nominations}</span>
+                                <span>nominations</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

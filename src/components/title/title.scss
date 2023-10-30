@@ -570,4 +570,47 @@
             }
         }
     }
+
+    .budgetBlock {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        
+        >span {
+            padding-left: 20px;
+            text-decoration: underline;
+            font-style: italic;
+        }
+
+        .boxOffice {
+
+            display: flex;
+            flex-direction: row;
+            padding-top: 10px;
+             
+            >div {
+                flex: 1;
+                display: flex;
+                justify-content: end;
+                flex-direction: column;
+                text-align: center;
+                >span {
+                    display: inline-block;
+                    background-color: black;
+                    color: var(--yellow);
+                    line-height: 14px;
+
+                    .date {
+                        display: inline-block;
+                        font-size: x-small;
+                        background-color: var(--blue);
+                        color: black;
+                    }
+                }
+
+            }
+        }
+
+
+    }
 }

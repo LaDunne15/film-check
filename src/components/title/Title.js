@@ -4,7 +4,7 @@ import Awards from "./elements/Awards.js";
 import Cast from "./elements/Cast.js";
 import Images from "./elements/Images.js";
 import Countries from "./elements/Countries.js";
-import Summary from "./elements/Summary.js";
+//import Summary from "./elements/Summary.js";
 import MainInfo from "./elements/MainInfo.js";
 import RecentViews from "../recentViews/RecentViews.js";
 
@@ -19,7 +19,7 @@ function Title ({id}) {
             <Cast id={id}/>
             <Awards id={id}/>
             <RevenueBudget id={id}/>
-            <Summary id={id}/>
+            {/*<Summary id={id}/>*/}
             <MoreLikeThis id={id}/>
             <RecentViews/>
         </div>

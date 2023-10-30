@@ -20,7 +20,6 @@ function Awards({id}) {
         titlesService.getTitleAwards(id).then(
             res=>res.json().then(data=>{
                 if(res.ok) {
-                    console.log(data.results);
                     setAwards({
                         nominations: data.results.nominations?.total,
                         wins: data.results.wins?.total,
@@ -30,7 +29,6 @@ function Awards({id}) {
                             nominations: data.results.prestigiousAwardSummary?.nominations
                         }
                     });
-                    console.log(awards);
                     setIsLoading(false);
                 } else {
                     setErrorData(data);
@@ -53,7 +51,7 @@ function Awards({id}) {
 
     return (
         <div className="awardsBlock">
-            <span>Awards:</span>
+            <span>Awards</span>
             <div className="awards">
             {
                 awards.prestigeAward.name &&

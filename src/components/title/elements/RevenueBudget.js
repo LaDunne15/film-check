@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import budget from "../../../app/constants/revenueBudget";
 import { titlesService } from "../../../services/titlesService.js";
+import { formatService } from "../../../services/formatService";
 
 function RevenueBudget({id}) {
     
@@ -61,13 +62,37 @@ function RevenueBudget({id}) {
     }
 
     return (
-        <div className="budget">
-            <h4>Бютжет</h4>
-            <div>
-                { revenueBudget.production.amount && <p>Кошторис: {revenueBudget.production.amount} {revenueBudget.production.currency}</p> }
-                { revenueBudget.weekend.amount && <p>Збір за перший вихідний: {revenueBudget.weekend.amount} {revenueBudget.weekend.currency} {revenueBudget.weekend.endDate}</p>}
-                { revenueBudget.worldwide.amount && <p>Світовий збір: {revenueBudget.worldwide.amount} {revenueBudget.worldwide.currency}</p>}
-                { revenueBudget.lifetime.amount && <p>Збір США і Канада: {revenueBudget.lifetime.amount} {revenueBudget.lifetime.currency}</p>}
+        <div className="budgetBlock">
+            <span>Box Office</span>
+            <div className="boxOffice">
+                {
+                    revenueBudget.production.amount &&
+                    <div className="budget">
+                        <span>Budget</span>
+                        <div>{formatService.formatNumber(revenueBudget.production.amount)} {revenueBudget.production.currency}</div>
+                    </div>
+                }
+                { 
+                    revenueBudget.weekend.amount && 
+                    <div className="weekend">
+                        <span>Opening weekend US & Canada <span className="date">{formatService.formatDate(revenueBudget.weekend.endDate)}</span></span>
+                        <div>{formatService.formatNumber(revenueBudget.weekend.amount)} {revenueBudget.weekend.currency}</div>
+                    </div>
+                }
+                { 
+                    revenueBudget.worldwide.amount &&
+                    <div className="worldwide">
+                        <span>Gross worldwide</span>
+                        <div>{formatService.formatNumber(revenueBudget.worldwide.amount)} {revenueBudget.worldwide.currency}</div>
+                    </div>
+                }
+                { 
+                    revenueBudget.lifetime.amount && 
+                    <div className="lifetime">
+                        <span>Gross US & Canada</span>
+                        <div>{formatService.formatNumber(revenueBudget.lifetime.amount)} {revenueBudget.lifetime.currency}</div>
+                    </div>
+                }
             </div>
         </div>
     )

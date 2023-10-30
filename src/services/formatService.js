@@ -24,6 +24,24 @@ class FormatService{
           return (number / 1000000000).toFixed(1) + "B";
         }
     }
+
+    formatDate(inputDate) {
+      const months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
+    
+      const parts = inputDate.split("-");
+      if (parts.length === 3) {
+        const year = parts[0];
+        const month = months[parseInt(parts[1]) - 1];
+        const day = parts[2];
+        return `${day} ${month} ${year}`;
+      } else {
+        return "Неправильний формат дати";
+      }
+    }
+    
       
 }
 

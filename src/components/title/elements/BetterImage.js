@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Actor from "../../../static/icons/actorBlack.png";
-import ActorYellow from "../../../static/icons/actorYellow.png";
-
-function ActorImage({url,isYellow}) {
+function BetterImage({url,altImage}) {
 
     const [_url,_setUrl] = useState("");
 
@@ -18,13 +15,13 @@ function ActorImage({url,isYellow}) {
 
     useEffect(()=>{
         checkImage(url).then((isValidUrl)=>{
-            _setUrl(isValidUrl?url:(isYellow?ActorYellow:Actor));
+            _setUrl(isValidUrl?url:altImage);
         })
-    },[url,isYellow]);
+    },[url,altImage]);
 
     return (
         <img src={_url} alt="actor"/>
     )
 }
 
-export default ActorImage;
+export default BetterImage;

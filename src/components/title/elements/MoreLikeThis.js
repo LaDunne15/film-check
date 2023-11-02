@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { titlesService } from "../../../services/titlesService";
-import MovieMini from "../../movieMini/MovieMini";
 import movieMini from "../../../app/constants/movieMini";
+import BetterImage from "./BetterImage";
+import NoMoviePhoto from "../../../static/icons/movieBlack.png";
+import { Link } from "react-router-dom";
 
 
 function MoreLikeThis ({id}){
@@ -54,10 +56,28 @@ function MoreLikeThis ({id}){
     }
 
     return (
-        <div className="moreLikeThis">
-        {
-            moreLikeThis.map(i=><MovieMini movieData={i} key={i.id}/>)
-        }
+        <div className="moreLikeThisBlock">
+            <span>More like this</span>
+            <div className="titles">
+                {
+                    moreLikeThis.map(i=>
+                        <Link key={i.id} className="title" to={"/movie/"+i.id}>
+                            <div className="background">
+                                <BetterImage className="titleImage" url={i.imageUrl} altImage={NoMoviePhoto}/>
+                            </div>
+                            <div className="content">
+                                <div className="_content">
+                                    <span className="titleNameLink" to={"/movie/"+i.id}>{i.name}</span>  
+                                    <span className="YearRating">
+                                        <span className="year">{i.year?i.year:""}</span>
+                                        <span className="rating">{i.rating?i.rating:""}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
+                    )
+                }
+            </div>
         </div>
     )
 }

@@ -5,7 +5,10 @@ import cast from "../../../app/constants/cast";
 import { titlesService } from "../../../services/titlesService";
 import { Link } from "react-router-dom";
 
-import ActorImage from "./ActorImage";
+import BetterImage from "./BetterImage";
+
+import ActorBlack from "../../../static/icons/actorBlack.png";
+import ActorYellow from "../../../static/icons/actorYellow.png";
 
 function Cast({id}) {
 
@@ -78,7 +81,7 @@ function Cast({id}) {
                     {
                         principalCast && principalCast.map(i=>
                             <div className="actor" key={i.id}>
-                                <ActorImage url={i.imageUrl} isYellow={true} />
+                                <BetterImage url={i.imageUrl} altImage={ActorYellow} />
                                 <Link className="actorName" to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
                                 <div className="characters">
                                     {
@@ -104,7 +107,7 @@ function Cast({id}) {
                         {
                             extendedCast && extendedCast.map(i=>
                                 <div className="actor" key={i.id}>
-                                    <ActorImage url={i.imageUrl} isYellow={false} />
+                                    <BetterImage url={i.imageUrl} altImage={ActorBlack} />
                                     <Link className="actorName" to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
                                     <div className="characters">
                                         {

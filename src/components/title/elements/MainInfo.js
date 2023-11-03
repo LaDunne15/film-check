@@ -5,7 +5,9 @@ import { formatService } from "../../../services/formatService.js";
 import ReactPlayer from "react-player";
 
 import increaseIcon from "../../../static/icons/increase.png";
+import altImage from "../../../static/icons/movieBlack.png";
 import decreaseIcon from "../../../static/icons/decrease.png";
+import BetterImage from "./BetterImage.js";
 
 function MainInfo({id}) {
     
@@ -96,7 +98,7 @@ function MainInfo({id}) {
         <div className="main-info">
             <div className="poster">
                 <div className="titleImage">
-                    <img src={title.imageUrl} alt={title.name}/>
+                    <BetterImage url={title.imageUrl} altImage={altImage}/>
                 </div>
                 <div className="title-info">
                     <span className="titleName">{title.name} • {title.year}</span>

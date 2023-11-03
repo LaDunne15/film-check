@@ -13,12 +13,18 @@ import "./title.scss";
 function Title ({id}) {
     return (
         <div className="title">
-            <MainInfo id={id}/>
-            <Countries id={id}/>
-            <Images id={id}/>
-            <Cast id={id}/>
-            <Awards id={id}/>
-            <RevenueBudget id={id}/>
+            <div className="blocks">
+                <div className="leftBlock">
+                    <MainInfo id={id}/>
+                    <Countries id={id}/>
+                    <Images id={id}/>
+                </div>
+                <div className="rightBlock">
+                    <Awards id={id}/>
+                    <Cast id={id}/>
+                    <RevenueBudget id={id}/>
+                </div>
+            </div>
             {/*<Summary id={id}/>*/}
             <MoreLikeThis id={id}/>
             <RecentViews/>

@@ -2,616 +2,625 @@
     display: flex;
     flex-direction: column;
 
-    .main-info {
-
-        padding: 15px;
-
-        >* {
-            padding-top: 5px;
-        }
-
-        .poster {
-
-            display: flex;
-            flex-direction: row;
-
-            .titleImage {
-                flex:1;
-
-                img {
+    .blocks {
+        display: flex;
+        flex-direction: column;
+        .leftBlock {
+            .main-info {
+    
+                padding: 15px;
+        
+                >* {
+                    padding-top: 5px;
+                }
+        
+                .poster {
+        
+                    display: flex;
+                    flex-direction: row;
+        
+                    .titleImage {
+                        flex:1;
+        
+                        img {
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+        
+                    .title-info {
+                        display: flex;
+                        flex-direction: column;
+                        text-align: center;
+                        flex: 2;
+        
+                        >* {
+                            padding-top: 3px;
+                        }
+        
+                        .titleName {
+                            background-color: black;
+                            color: var(--yellow);
+                            font-size: x-large;
+                            text-align: center;
+                        }
+                        
+                        span {
+                            display: inline-block;
+                            .titleType {
+                                background-color: black;
+                                color: var(--yellow);
+                            }
+                        }
+        
+                        .popularity {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+        
+                            .difference {
+                                display: flex;
+                                
+                                img {
+                                    width: 10px;
+                                    height: 10px;
+                                }
+        
+                                span {
+                                    font-size: small;
+                                }
+                            }
+                            .down {
+                                flex-direction: column;
+                            }
+            
+                            .up {
+                                flex-direction: column-reverse;
+                            }
+        
+                        }
+                        
+                    }
+                }
+        
+                .titleGenres {
+                    display: block;
+                    text-align: center;
+                    >span {
+                        background-color: black;
+                        color: var(--yellow);
+                        display: inline-block;
+        
+                        &::before {
+                            content: "•";
+                            color: black;
+                            background-color: var(--yellow);
+                            display: inline-block;
+                            padding: 1px;
+                        }
+        
+                        &:first-child::before {
+                            content: " ";
+                            color: black;
+                            background-color: var(--yellow);
+                            display: inline-block;
+                            padding: 1px;
+                        }
+                    }
+                }
+        
+                .titlePlot {
+                    display: block;
+                    font-style: italic;
+                    font-size: small;
+                    border-left: 3px solid black;
+                    padding-left: 5px;
+                }
+        
+                .titleKeywords {
+                    display: block;
+                    text-align: center;
+                    font-size: small;
+        
+                    &::before {
+                        content: "keywords:";
+                        font-weight: bold;
+                        font-style: italic;
+                    }
+        
+                    >span {
+                        display: inline-block;
+                        font-style: italic;
+                        text-decoration: underline;
+        
+                        &::before {
+                            content: "•";
+                            display: inline-block;
+                            padding: 1px;
+                        }
+        
+                        &:first-child::before {
+                            content: " ";
+                            display: inline-block;
+                            padding: 1px;
+                        }
+                    }
+                }
+        
+                .titleTrailer {
                     display: block;
                     width: 100%;
                 }
+        
+                .executers_part {
+        
+                    >span {
+                        padding-left: 20px;
+                        text-decoration: underline;
+                        font-style: italic;
+                    }
+        
+                    .executers {
+                        padding: 5px;
+        
+                        .executer {
+                            background-color: #000000;
+                            color: var(--yellow);
+                            display: inline-block;
+        
+                            &::before {
+                                content: "•";
+                                color: black;
+                                background-color: var(--yellow);
+                                display: inline-block;
+                                padding: 1px;
+                            }
+        
+                            &:first-child::before {
+                                content: "";
+                                color: black;
+                                background-color: var(--yellow);
+                                display: inline-block;
+                                padding: 1px;
+                            }
+                        }
+                        
+                    }
+                }
+        
             }
-
-            .title-info {
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-                flex: 2;
-
+        
+            .countries {
+        
+                padding: 15px;
+        
                 >* {
-                    padding-top: 3px;
+                    padding-top: 5px;
                 }
-
-                .titleName {
-                    background-color: black;
-                    color: var(--yellow);
-                    font-size: x-large;
-                    text-align: center;
+        
+                >span {
+                    padding-left: 20px;
+                    text-decoration: underline;
+                    font-style: italic;
                 }
-                
-                span {
-                    display: inline-block;
-                    .titleType {
+        
+                .countriesList {
+                    display: flex;
+                    flex-direction: row;
+        
+                    .country {
                         background-color: black;
                         color: var(--yellow);
-                    }
-                }
-
-                .popularity {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-
-                    .difference {
-                        display: flex;
-                        
-                        img {
-                            width: 10px;
-                            height: 10px;
-                        }
-
-                        span {
-                            font-size: small;
-                        }
-                    }
-                    .down {
-                        flex-direction: column;
-                    }
-    
-                    .up {
-                        flex-direction: column-reverse;
-                    }
-
-                }
-                
-            }
-        }
-
-        .titleGenres {
-            display: block;
-            text-align: center;
-            >span {
-                background-color: black;
-                color: var(--yellow);
-                display: inline-block;
-
-                &::before {
-                    content: "•";
-                    color: black;
-                    background-color: var(--yellow);
-                    display: inline-block;
-                    padding: 1px;
-                }
-
-                &:first-child::before {
-                    content: " ";
-                    color: black;
-                    background-color: var(--yellow);
-                    display: inline-block;
-                    padding: 1px;
-                }
-            }
-        }
-
-        .titlePlot {
-            display: block;
-            font-style: italic;
-            font-size: small;
-            border-left: 3px solid black;
-            padding-left: 5px;
-        }
-
-        .titleKeywords {
-            display: block;
-            text-align: center;
-            font-size: small;
-
-            &::before {
-                content: "keywords:";
-                font-weight: bold;
-                font-style: italic;
-            }
-
-            >span {
-                display: inline-block;
-                font-style: italic;
-                text-decoration: underline;
-
-                &::before {
-                    content: "•";
-                    display: inline-block;
-                    padding: 1px;
-                }
-
-                &:first-child::before {
-                    content: " ";
-                    display: inline-block;
-                    padding: 1px;
-                }
-            }
-        }
-
-        .titleTrailer {
-            display: block;
-            width: 100%;
-        }
-
-        .executers_part {
-
-            >span {
-                padding-left: 20px;
-                text-decoration: underline;
-                font-style: italic;
-            }
-
-            .executers {
-                padding: 5px;
-
-                .executer {
-                    background-color: #000000;
-                    color: var(--yellow);
-                    display: inline-block;
-
-                    &::before {
-                        content: "•";
-                        color: black;
-                        background-color: var(--yellow);
-                        display: inline-block;
-                        padding: 1px;
-                    }
-
-                    &:first-child::before {
-                        content: "";
-                        color: black;
-                        background-color: var(--yellow);
-                        display: inline-block;
-                        padding: 1px;
-                    }
-                }
-                
-            }
-        }
-
-    }
-
-    .countries {
-
-        padding: 15px;
-
-        >* {
-            padding-top: 5px;
-        }
-
-        >span {
-            padding-left: 20px;
-            text-decoration: underline;
-            font-style: italic;
-        }
-
-        .countriesList {
-            display: flex;
-            flex-direction: row;
-
-            .country {
-                background-color: black;
-                color: var(--yellow);
-
-                &::before {
-                    content: "•";
-                    color: black;
-                    background-color: var(--yellow);
-                    display: inline-block;
-                    padding: 1px;
-                }
-
-                &:first-child::before {
-                    content: "";
-                    color: black;
-                    background-color: var(--yellow);
-                    display: inline-block;
-                    padding: 1px;
-                }
-            }
-        }
-    }
-
-    .imagesBlock {
-
-        padding-bottom: 15px;
-
-        >span {
-            padding-left: 35px;
-            font-style: italic;
-            text-decoration: underline;
-        }
-
-        .modal {  
-            display: flex; /* Hidden by default */
-            flex-direction: column;
-            max-height: 100vh;
-
-            position: fixed; /* Stay in place */
-            z-index: 100; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow:hidden; /* Enable scroll if needed */
-            background: repeating-linear-gradient(
-                -45deg,
-                rgba(black,0.9),
-                rgba(black,0.9) 10px,
-                rgba(#00312d,0.9) 10px,
-                rgba(#00312d,0.9) 15px
-            );
-
-            .button {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-                height: 30px;
-                button {
-                    border: none;
-                    background: none;
-                    color: var(--yellow);
-                }
-            }
-
-            .imageData {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-
-                img {
-                    max-height: calc(100vh - 130px);
-                    object-fit: contain;
-                }
-            }
-
-            .buttons {
-                display: flex;
-                flex-direction: row;
-                height: 100px;
-
-                span {
-                    flex: 1;
-                    text-align: center;
-                    align-self: center;
-                    color: var(--yellow);
-                    text-shadow: 0px 0px 5px 15px black;
-                }
-
-                >div {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    width: 30px;
-
-                    button,div {
-                        background: none;
-                        border: none;
-                        color: var(--yellow);
-                        font-size: x-large;
-                        span {
-                            text-shadow: 0 4px 4px #000;
-                        }
-                    }
-
-                    .left {
-                        border-right: 1px solid var(--yellow);
-                    }
-
-                    .right {
-                        border-left: 1px solid var(--yellow);
-                    }
-                }
-            }
-        }
-
-        .images {
-            padding-top: 10px;
-            display: flex;
-            flex-direction: row;
-            >div {
-                display: block;
-                flex: 1;
-                >img {
-                    width: 100%;
-                    aspect-ratio: 1/1;
-                    object-fit: cover;
-                }
-            }
-        }
-    }
-
-    .castBlock {
-
-        &::before, &::after {
-            content: " ";
-            display: block;
-            background: repeating-linear-gradient(
-                -45deg,
-                var(--yellow),
-                var(--yellow) 5px,
-                var(--black) 5px,
-                var(--black) 10px
-            );
-            height: 30px;
-        }
         
-        background-color: black;
-
-        .principalCast {
-
-            color: var(--yellow);
-            padding: 5px;
-            display: block;
-            text-align: center;
-
-            >span {
-                font-style: italic;
-                font-size: large;
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            .actors {
-                padding-top: 15px;
-                display: inline-grid;
-                grid-template-columns: 1fr 1fr;
-
-                .actor {
-                    flex: 1;
-                    text-align: center;
-                    display: flex;
-                    flex-direction: column;
-                    padding-top: 5px;
-
-                    img {
-                        width: 70px;
-                        height: 70px;
-                        aspect-ratio: 1/1;
-                        object-fit: cover;
-                        border-radius: 50%;
-                        align-self: center;
-                    }
-
-                    .actorName {
-                        color: var(--yellow);
-                    }
-
-                    .characters {
-                        display: flex;
-                        flex-direction: column;
-
-                        .character {
-                            font-size: small;
-                            font-style: italic;
-                        }
-                    }
-                }
-            }
-        }
-
-
-        .stribedBorder {
-            padding: 5px;
-            background: repeating-linear-gradient(
-                -45deg,
-                var(--yellow),
-                var(--yellow) 5px,
-                var(--black) 5px,
-                var(--black) 10px
-            );
-            margin: 15px;
-            .extendedCast {
-                
-                padding: 5px;
-                background-color: var(--yellow);
-                display: block;
-                text-align: center;
-                
-                >span {
-                    font-style: italic;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                }
-
-                .actors {
-                    padding-top: 15px;
-                    display: inline-grid;
-                    grid-template-columns: 1fr 1fr 1fr;
-
-                    .actor {
-                        flex: 1;
-                        text-align: center;
-                        display: flex;
-                        flex-direction: column;
-                        padding-top: 5px;
-    
-                        img {
-                            width: 50px;
-                            height: 50px;
-                            aspect-ratio: 1/1;
-                            object-fit: cover;
-                            border-radius: 50%;
-                            align-self: center;
-                        }
-
-                        .actorName {
+                        &::before {
+                            content: "•";
                             color: black;
-                            font-size: small;
+                            background-color: var(--yellow);
+                            display: inline-block;
+                            padding: 1px;
                         }
-    
-                        .characters {
+        
+                        &:first-child::before {
+                            content: "";
+                            color: black;
+                            background-color: var(--yellow);
+                            display: inline-block;
+                            padding: 1px;
+                        }
+                    }
+                }
+            }
+        
+            .imagesBlock {
+        
+                padding-bottom: 15px;
+        
+                >span {
+                    padding-left: 35px;
+                    font-style: italic;
+                    text-decoration: underline;
+                }
+        
+                .modal {  
+                    display: flex; /* Hidden by default */
+                    flex-direction: column;
+                    max-height: 100vh;
+        
+                    position: fixed; /* Stay in place */
+                    z-index: 100; /* Sit on top */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow:hidden; /* Enable scroll if needed */
+                    background: repeating-linear-gradient(
+                        -45deg,
+                        rgba(black,0.9),
+                        rgba(black,0.9) 10px,
+                        rgba(#00312d,0.9) 10px,
+                        rgba(#00312d,0.9) 15px
+                    );
+        
+                    .button {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-end;
+                        height: 30px;
+                        button {
+                            border: none;
+                            background: none;
+                            color: var(--yellow);
+                        }
+                    }
+        
+                    .imageData {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+        
+                        img {
+                            max-height: calc(100vh - 130px);
+                            object-fit: contain;
+                        }
+                    }
+        
+                    .buttons {
+                        display: flex;
+                        flex-direction: row;
+                        height: 100px;
+        
+                        span {
+                            flex: 1;
+                            text-align: center;
+                            align-self: center;
+                            color: var(--yellow);
+                            text-shadow: 0px 0px 5px 15px black;
+                        }
+        
+                        >div {
                             display: flex;
                             flex-direction: column;
+                            justify-content: center;
+                            width: 30px;
+        
+                            button,div {
+                                background: none;
+                                border: none;
+                                color: var(--yellow);
+                                font-size: x-large;
+                                span {
+                                    text-shadow: 0 4px 4px #000;
+                                }
+                            }
+        
+                            .left {
+                                border-right: 1px solid var(--yellow);
+                            }
+        
+                            .right {
+                                border-left: 1px solid var(--yellow);
+                            }
+                        }
+                    }
+                }
+        
+                .images {
+                    padding-top: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    >div {
+                        display: block;
+                        flex: 1;
+                        >img {
+                            width: 100%;
+                            aspect-ratio: 1/1;
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
+        }
     
-                            .character {
-                                font-size: x-small;
-                                font-style: italic;
+        .rightBlock {
+            .castBlock {
+        
+                &::before, &::after {
+                    content: " ";
+                    display: block;
+                    background: repeating-linear-gradient(
+                        -45deg,
+                        var(--yellow),
+                        var(--yellow) 5px,
+                        var(--black) 5px,
+                        var(--black) 10px
+                    );
+                    height: 10px;
+                }
+                
+                background-color: black;
+        
+                .principalCast {
+        
+                    color: var(--yellow);
+                    padding: 5px;
+                    display: block;
+                    text-align: center;
+        
+                    >span {
+                        font-style: italic;
+                        font-size: large;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                    }
+        
+                    .actors {
+                        padding-top: 15px;
+                        display: inline-grid;
+                        grid-template-columns: 1fr 1fr;
+        
+                        .actor {
+                            flex: 1;
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            padding-top: 5px;
+        
+                            img {
+                                width: 70px;
+                                height: 70px;
+                                aspect-ratio: 1/1;
+                                object-fit: cover;
+                                border-radius: 50%;
+                                align-self: center;
+                            }
+        
+                            .actorName {
+                                color: var(--yellow);
+                            }
+        
+                            .characters {
+                                display: flex;
+                                flex-direction: column;
+        
+                                .character {
+                                    font-size: small;
+                                    font-style: italic;
+                                }
+                            }
+                        }
+                    }
+                }
+        
+        
+                .stribedBorder {
+                    padding: 5px;
+                    background: repeating-linear-gradient(
+                        -45deg,
+                        var(--yellow),
+                        var(--yellow) 5px,
+                        var(--black) 5px,
+                        var(--black) 10px
+                    );
+                    margin: 15px;
+                    .extendedCast {
+                        
+                        padding: 5px;
+                        background-color: var(--yellow);
+                        display: block;
+                        text-align: center;
+                        
+                        >span {
+                            font-style: italic;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                        }
+        
+                        .actors {
+                            padding-top: 15px;
+                            display: inline-grid;
+                            grid-template-columns: 1fr 1fr 1fr;
+        
+                            .actor {
+                                flex: 1;
+                                text-align: center;
+                                display: flex;
+                                flex-direction: column;
+                                padding-top: 5px;
+            
+                                img {
+                                    width: 50px;
+                                    height: 50px;
+                                    aspect-ratio: 1/1;
+                                    object-fit: cover;
+                                    border-radius: 50%;
+                                    align-self: center;
+                                }
+        
+                                .actorName {
+                                    color: black;
+                                    font-size: small;
+                                }
+            
+                                .characters {
+                                    display: flex;
+                                    flex-direction: column;
+            
+                                    .character {
+                                        font-size: x-small;
+                                        font-style: italic;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    }
-
-    .awardsBlock {
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-
-        >span {
-            padding-left: 20px;
-            text-decoration: underline;
-            font-style: italic;
-        }
-
-        .awards {
-            padding-top: 15px;
-            display: flex;
-            flex-direction: row;
-
-            .prestigeAwards {
-                flex: 1;
-                background-color: var(--blue);
-                border: 3px dashed black;
-                padding-top: 5px;
-
+        
+            .awardsBlock {
+                padding: 15px;
+                display: flex;
+                flex-direction: column;
+        
                 >span {
-                    background-color: black;
-                    color: var(--blue);
+                    padding-left: 20px;
+                    text-decoration: underline;
                     font-style: italic;
-                    display: inline-block;
-                    margin-left: 20px;
                 }
-
-                .total {
-                    >div {
-                        >span:first-child {
+        
+                .awards {
+                    padding-top: 15px;
+                    display: flex;
+                    flex-direction: row;
+        
+                    .prestigeAwards {
+                        flex: 1;
+                        background-color: var(--blue);
+                        border: 3px dashed black;
+                        padding-top: 5px;
+        
+                        >span {
+                            background-color: black;
                             color: var(--blue);
+                            font-style: italic;
+                            display: inline-block;
+                            margin-left: 20px;
+                        }
+        
+                        .total {
+                            >div {
+                                >span:first-child {
+                                    color: var(--blue);
+                                }
+                            }
+                        }
+                    }
+        
+                    .total {
+                        display: flex;
+                        flex-direction: row;
+                        padding-top: 5px;
+        
+                        .nominations {
+                            >span:first-child {
+                                width: 40px;
+                                height: 40px;
+                                margin-top: 5px;
+                                margin-bottom: 5px;
+                                font-size: small;
+                            }
+                        }
+        
+                        >div {
+                            display: flex;
+                            flex-direction: column;
+                            flex: 1;
+        
+                            >span:first-child {
+                                display: flex;
+                                flex-direction: column;
+                                font-size: x-large;
+                                justify-content: center;
+                                border: 3px solid black;
+                                background-color: black;
+                                color: var(--yellow);
+                                aspect-ratio: 1/1;
+                                border-radius: 50%;
+                                padding: auto;
+                                text-align: center;
+                                align-content: center;
+                                width: 50px;
+                                height: 50px;
+                                align-self: center;
+                            }
+        
+                            >span:last-child {
+                                text-align: center;
+                                font-size: small;
+                            }
+                        }
+                    }
+            
+                    .otherAwards {
+                        flex: 1;
+                        padding-top: 5px;
+                        border: 3px dashed yellow;
+        
+                        >span {
+                            font-style: italic;
+                            padding-left: 20px;
+                            font-size: small;
                         }
                     }
                 }
             }
-
-            .total {
+        
+            .budgetBlock {
+                padding: 15px;
                 display: flex;
-                flex-direction: row;
-                padding-top: 5px;
-
-                .nominations {
-                    >span:first-child {
-                        width: 40px;
-                        height: 40px;
-                        margin-top: 5px;
-                        margin-bottom: 5px;
-                        font-size: small;
-                    }
+                flex-direction: column;
+                
+                >span {
+                    padding-left: 20px;
+                    text-decoration: underline;
+                    font-style: italic;
                 }
-
-                >div {
+        
+                .boxOffice {
+        
                     display: flex;
-                    flex-direction: column;
-                    flex: 1;
-
-                    >span:first-child {
+                    flex-direction: row;
+                    padding-top: 10px;
+                     
+                    >div {
+                        flex: 1;
                         display: flex;
+                        justify-content: flex-end;
                         flex-direction: column;
-                        font-size: x-large;
-                        justify-content: center;
-                        border: 3px solid black;
-                        background-color: black;
-                        color: var(--yellow);
-                        aspect-ratio: 1/1;
-                        border-radius: 50%;
-                        padding: auto;
                         text-align: center;
-                        align-content: center;
-                        width: 50px;
-                        height: 50px;
-                        align-self: center;
-                    }
-
-                    >span:last-child {
-                        text-align: center;
-                        font-size: small;
+                        >span {
+                            display: inline-block;
+                            background-color: black;
+                            color: var(--yellow);
+                            line-height: 14px;
+        
+                            .date {
+                                display: inline-block;
+                                font-size: x-small;
+                                background-color: var(--blue);
+                                color: black;
+                            }
+                        }
+        
                     }
                 }
+        
+        
             }
     
-            .otherAwards {
-                flex: 1;
-                padding-top: 5px;
-                border: 3px dashed yellow;
-
-                >span {
-                    font-style: italic;
-                    padding-left: 20px;
-                    font-size: small;
-                }
-            }
         }
-    }
-
-    .budgetBlock {
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        
-        >span {
-            padding-left: 20px;
-            text-decoration: underline;
-            font-style: italic;
-        }
-
-        .boxOffice {
-
-            display: flex;
-            flex-direction: row;
-            padding-top: 10px;
-             
-            >div {
-                flex: 1;
-                display: flex;
-                justify-content: flex-end;
-                flex-direction: column;
-                text-align: center;
-                >span {
-                    display: inline-block;
-                    background-color: black;
-                    color: var(--yellow);
-                    line-height: 14px;
-
-                    .date {
-                        display: inline-block;
-                        font-size: x-small;
-                        background-color: var(--blue);
-                        color: black;
-                    }
-                }
-
-            }
-        }
-
-
     }
 
     .moreLikeThisBlock {
@@ -687,6 +696,80 @@
                     }
                 }
             }
+        }
+    }
+}
+
+@media (min-width: 426px) {
+    .title {
+        .blocks {
+            display: flex;
+            flex-direction: row;
+            .leftBlock {
+                flex: 1;
+            }
+            .rightBlock {
+                flex: 1;
+                .castBlock {
+                    .principalCast {
+                        .actors {
+                            grid-template-columns: 1fr 1fr;
+                        }
+                    }
+
+                    .stribedBorder {
+                        .extendedCast {
+                            .actors {
+                                grid-template-columns: 1fr 1fr 1fr 1fr;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        .moreLikeThisBlock {
+            .titles {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }   
+        }
+    }
+}
+
+@media (min-width: 769px) {
+    .title {
+        .blocks {
+            display: flex;
+            flex-direction: row;
+            .leftBlock {
+                flex: 1;
+            }
+            .rightBlock {
+                flex: 1;
+                .castBlock {
+                    .principalCast {
+                        .actors {
+                            grid-template-columns: 1fr 1fr 1fr 1fr;
+                        }
+                    }
+
+                    .stribedBorder {
+                        .extendedCast {
+                            .actors {
+                                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        .moreLikeThisBlock {
+            .titles {
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            }   
         }
     }
 }

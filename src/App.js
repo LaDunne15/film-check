@@ -1,6 +1,6 @@
 import Main from "./pages/Main";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Search from "./pages/Search";
+import Search from "./components/search/Search";
 import Actor from "./pages/Actor";
 import HeaderElement from "./components/header/headerElement";
 import FooterElement from "./components/footer/footerElement";

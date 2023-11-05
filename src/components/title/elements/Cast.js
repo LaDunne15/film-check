@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { encode } from 'base-64';
+//import { encode } from 'base-64';
 
 import cast from "../../../app/constants/cast";
 import { titlesService } from "../../../services/titlesService";
@@ -82,7 +82,7 @@ function Cast({id}) {
                         principalCast && principalCast.map(i=>
                             <div className="actor" key={i.id}>
                                 <BetterImage url={i.imageUrl} altImage={ActorYellow} />
-                                <Link className="actorName" to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
+                                <Link className="actorName" to={"/actor/"+i.id}> {i.name} </Link>
                                 <div className="characters">
                                     {
                                         i.characters.map ((j,index)=>
@@ -108,7 +108,7 @@ function Cast({id}) {
                             extendedCast && extendedCast.map(i=>
                                 <div className="actor" key={i.id}>
                                     <BetterImage url={i.imageUrl} altImage={ActorBlack} />
-                                    <Link className="actorName" to={"/actor/"+i.id+"/"+(encode(i.imageUrl))}> {i.name} </Link>
+                                    <Link className="actorName" to={"/actor/"+i.id}> {i.name} </Link>
                                     <div className="characters">
                                         {
                                             i.characters.map ((j,index)=>

@@ -18,6 +18,20 @@ class TitleService {
         })
     }
 
+    async getTitlesPrincipalCastByIds(ids) {
+        return await fetch(`https://moviesdatabase.p.rapidapi.com/titles/x/titles-by-ids?idsList=${ids}&info=principalCast`, {
+            method: "GET",
+            headers: this.headers
+        })
+    }
+
+    async getTitlesExtendedCastByIds(ids) {
+        return await fetch(`https://moviesdatabase.p.rapidapi.com/titles/x/titles-by-ids?idsList=${ids}&info=extendedCast`, {
+            method: "GET",
+            headers: this.headers
+        })
+    }
+
     async getTitlesByName(name,page) {
         return await fetch(`https://moviesdatabase.p.rapidapi.com/titles/search/title/${name}?sort=year.decr&exact=false&info=custom_info&limit=30&page=${page}`, {
             method: "GET",

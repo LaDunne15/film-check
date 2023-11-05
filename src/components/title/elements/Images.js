@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { titlesService } from "../../../services/titlesService";
 import image from "../../../app/constants/image";
+import NoImage from "../../../static/icons/movieBlack.png";
+import BetterImage from "./BetterImage";
 function Images({id}) {
 
     const [ images, setImages ] = useState([image]);
@@ -82,7 +84,7 @@ function Images({id}) {
                 <div className="modal">
                     <div className="button"><button onClick={()=>setModalActive(false)}>CLOSE &#10005;</button></div>
                     <div className="imageData">
-                        <img src={images[currentImage].url} alt={images[currentImage].plainText}/>
+                        <BetterImage url={images[currentImage].url} altImage={NoImage}/>
                     </div>
                     <div className="buttons">
                         <div>{ currentImage>0?<button className="left" onClick={prevImage}><span>&#60;</span></button>:<div></div>}</div>
@@ -94,8 +96,8 @@ function Images({id}) {
             <div className="images">
             {
                 images.slice(0,3).map((i,index)=>
-                    <div key={index}>
-                        <img onClick={()=>event1(index)} loading="lazy" src={i.url} alt={i.plainText}/>
+                    <div key={index} onClick={()=>event1(index)}>
+                        <BetterImage url={i.url} altImage={NoImage}/>
                     </div>
                 )
             }

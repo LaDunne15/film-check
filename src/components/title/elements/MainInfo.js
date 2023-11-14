@@ -168,8 +168,8 @@ function MainInfo({id}) {
                     </div>
                 </div>
             }
-            { false && title.trailerUrl&&
-                <div className="titleTrailer"><ReactPlayer width="100%" height="100%" url={title.trailerUrl} /></div>
+            { title.trailerUrl&&
+                <div className="titleTrailer"><ReactPlayer controls={true} width="100%" height="100%" url={title.trailerUrl} /></div>
             }
         </div>
     );

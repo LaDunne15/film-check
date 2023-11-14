@@ -146,6 +146,9 @@ function Actor() {
                     }
                 </div>
             </div>
+            <span className="knownIn">
+                Known in ...
+            </span>
             <div className="titles">
                 {
                     titles.map(i=>

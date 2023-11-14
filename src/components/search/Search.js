@@ -135,6 +135,9 @@ function Search() {
                 </div>
             }
             <div className="searchResult">
+                <span className="resultFor">
+                    Result for <span>"{currentString}"</span>:
+                </span>
                 <div className="titles">
                     {
                         movies.map(i=>

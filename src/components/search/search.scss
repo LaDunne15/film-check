@@ -5,6 +5,7 @@
     .searchInput {
         padding: 5px;
         display: flex;
+        align-self: center;
         gap: 2px;
 
         span {
@@ -37,6 +38,17 @@
                 width: 24px;
                 align-self: center;
             }
+        }
+    }
+
+    .resultFor {
+        display: block;
+        padding-left: 20px;
+        font-style: italic;
+
+        >span {
+            font-style: normal;
+            font-weight: bold;
         }
     }
 
@@ -77,10 +89,6 @@
                 font-size: x-large;
                 font-weight: bold;
             }
-
-            >div {
-                
-            }
         }
     }
 
@@ -90,13 +98,10 @@
             margin-top: 15px;
             display: inline-grid;
             grid-template-columns: 1fr 1fr;
-            border-top: 5px solid black;
-            border-left: 5px solid black;
+            gap: 5px;
 
             .title {
 
-                border-right: 5px solid black;
-                border-bottom: 5px solid black;
                 position: relative;
 
                 .background {

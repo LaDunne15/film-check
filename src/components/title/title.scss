@@ -149,6 +149,7 @@
         
                 .titleTrailer {
                     display: block;
+                    aspect-ratio: 3/2;
                     width: 100%;
                 }
         
@@ -326,6 +327,8 @@
                 }
         
                 .images {
+
+                    max-height: 200px;
                     padding-top: 10px;
                     display: flex;
                     flex-direction: row;

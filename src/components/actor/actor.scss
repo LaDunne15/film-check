@@ -59,6 +59,14 @@
         }
     }
 
+    .knownIn {
+        background-color: black;
+        color: var(--yellow);
+        display: inline-block;
+        font-size: x-large;
+        padding: 5px;
+    }
+
     .titles {
         display: grid;
         grid-template-columns: repeat(auto-fill, 60px);
@@ -69,8 +77,9 @@
 
         .title {
 
-            border-right: 5px solid black;
-            border-bottom: 5px solid black;
+
+            max-width: 200px;
+
             position: relative;
 
             .background {

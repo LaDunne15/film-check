@@ -1,8 +1,7 @@
 class TitleService {
 
     constructor () {
-        this.key = "94e8a93e32mshfec3feee4ab31ccp1407c2jsn9e21d1465047";
-        //this.key =   "6d36728c7bmshba73de4d4b3f21fp1ce1c3jsn60a4b7f90e12";
+        this.key =`${process.env.REACT_APP_API_KEY}`;
         this.headers = {
             'X-RapidAPI-Key': this.key,
             "X-RapidAPI-Host":"moviesdatabase.p.rapidapi.com",

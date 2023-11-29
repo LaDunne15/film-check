@@ -1,6 +1,6 @@
 {
   "name": "film-check",
-  "version": "0.20.1",
+  "version": "0.20.2",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.8.2",
@@ -29,6 +29,7 @@
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.10",
     "default-passive-events": "^2.0.0",
+    "dotenv": "^16.3.1",
     "embla-carousel-react": "^7.1.0",
     "graphql": "^16.8.0",
     "passive-events-support": "^1.1.0",

@@ -3,7 +3,7 @@ class LocalStorageService {
     addTitle(id) {
         const titles = this.getTitles().filter(item => item !== id);
         titles.unshift(id);
-        localStorage.setItem('titles',JSON.stringify(titles));
+        localStorage.setItem('titles',JSON.stringify(titles.slice(0,10)));
         return titles;
     }
 
